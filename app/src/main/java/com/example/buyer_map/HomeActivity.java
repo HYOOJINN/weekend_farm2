@@ -21,7 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void ClickButton2(View v){
-///잘됨
+///잘됨진짜
 
         //지도가 잘 안됨
         Intent intent=new Intent(getApplicationContext(),MapsActivity.class);

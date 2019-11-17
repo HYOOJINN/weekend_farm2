@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".request">
 
     <TextView
@@ -12,14 +12,102 @@
         android:layout_height="39dp"
         android:text="관리자에게 요청하기"
         android:textSize="30sp"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="86dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:textStyle="bold"
+        android:typeface="monospace"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"/>
+
+    <ImageView
+        android:layout_width="251dp"
+        android:layout_height="198dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/request"></ImageView>
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  원하는 농작물이 있으신가요?"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="161dp"
+        android:textSize="18sp"
+        android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context=".request">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="  작물 입력"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="195dp" />
 
 
+        <EditText
+            android:id="@+id/cropnameInput"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint=" 예) 비트"
+            android:inputType="text"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  농장 정보가 더 필요하신가요?"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="236dp"
+        android:textSize="18sp"
+        android:layout_marginTop="30dp"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context=".request">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="  주소 입력"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="274dp" />
+
+        <EditText
+            android:id="@+id/addressInput"
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint=" 예) 서울시 양천구 양천로 24"
+            android:inputType="text"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="147dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:text="요청하기"
+        android:layout_gravity="center"
+        android:onClick="ClickButton1"/>
+
+
+</LinearLayout>

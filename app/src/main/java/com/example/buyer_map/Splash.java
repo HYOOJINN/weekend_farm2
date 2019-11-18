@@ -1,10 +1,10 @@
 package com.example.buyer_map;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import gr.net.maroulis.library.EasySplashScreen;
 
@@ -19,17 +19,17 @@ public class Splash extends AppCompatActivity {
                 .withFullScreen()
                 .withTargetActivity(HomeActivity.class)
                 .withSplashTimeOut(3000) //3초
-                .withBackgroundColor(Color.WHITE)
+                .withBackgroundColor(Color.rgb(249, 247, 233 ))
                 .withHeaderText("")
                 .withFooterText("Welcome!")
                 .withBeforeLogoText("")
                 .withAfterLogoText("WEEKEND FARM")
-                .withLogo(R.drawable.farmer);
+                .withLogo(R.drawable.farmer2);
 
-        config.getHeaderTextView().setTextColor(Color.WHITE);
-        config.getFooterTextView().setTextColor(Color.BLACK);
-        config.getBeforeLogoTextView().setTextColor(Color.WHITE);
-        config.getAfterLogoTextView().setTextColor(Color.BLACK);
+       // config.getHeaderTextView().setTextColor(Color.WHITE);
+        config.getFooterTextView().setTextColor(Color.rgb(24, 155, 163 ));
+       // config.getBeforeLogoTextView().setTextColor(Color.WHITE);
+        config.getAfterLogoTextView().setTextColor(Color.rgb(24, 155, 163 ));
 
         View easySplashScreen = config.create();
         setContentView(easySplashScreen);

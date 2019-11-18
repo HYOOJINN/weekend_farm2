@@ -1,7 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Information"/>
+    android:orientation="vertical"
+    tools:context=".Information"
+    >
+
+    <TextView
+        android:id="@+id/toptextView"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:layout_gravity="center"
+        android:layout_margin="70dp"
+        android:layout_marginTop="70dp"
+        android:text="판매 정보"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context=".Information">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="  게시글 제목: "
+            android:textColor="#000000"
+            android:textSize="25sp"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="195dp"
+            android:layout_margin="5dp"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context=".Information"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/textViewadd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="  주소 : "
+            android:textColor="#000000"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="195dp" />
+
+
+        <TextView
+            android:id="@+id/inputadd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="195dp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context=".Information"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/textViewcr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="  작물 입력 : "
+            android:textColor="#000000"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="195dp" />
+        <TextView
+            android:id="@+id/inputcr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="195dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context=".Information"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/textViewty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="  개인 / 소상공인 : "
+            android:textColor="#000000"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="195dp" />
+        <TextView
+            android:id="@+id/inputty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="195dp" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/inputinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:text=""
+        android:background="#FFFAE7"
+        android:inputType="text"
+        android:textSize="18sp"
+        android:layout_margin="20dp"/>
+
+    <Button
+        android:id="@+id/btnOkay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#189BA3"
+        android:onClick="btnOkay"
+        android:text="확인" />
+
+
+
+</LinearLayout>

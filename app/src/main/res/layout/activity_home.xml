@@ -9,12 +9,14 @@
 
 
     <ImageView
-        android:layout_width="312dp"
-        android:layout_height="322dp"
-        android:layout_gravity="center"
+        android:layout_width="240dp"
+        android:layout_height="228dp"
         android:background="@drawable/home"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="173dp"></ImageView>
+        android:layout_marginStart="70dp"
+        android:layout_marginBottom="400dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="150dp"></ImageView>
 
     <ImageButton
         android:id="@+id/button"

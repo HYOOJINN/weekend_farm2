@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class Seller extends AppCompatActivity {
 
@@ -38,26 +39,26 @@ public class Seller extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller);
 
-        mEditTexttitle = (EditText)findViewById(R.id.title);
-        mEditTextaddressinput = (EditText)findViewById(R.id.addressinput);
-        mEditTextcropinput = (EditText)findViewById(R.id.cropinput);
-        mEditTextcontent = (EditText)findViewById(R.id.content);
-        mTextViewsqltext = (TextView)findViewById(R.id.sqltext);
+        mEditTexttitle = findViewById(R.id.title);
+        mEditTextaddressinput = findViewById(R.id.addressInput);
+        mEditTextcropinput = findViewById(R.id.cropInput);
+        mEditTextcontent = findViewById(R.id.content);
+        mTextViewsqltext = findViewById(R.id.sqltext);
 
         mTextViewsqltext.setMovementMethod(new ScrollingMovementMethod());
 
-        Button buttonInsert = (Button)findViewById(R.id.btnComplete);
+        Button buttonInsert = findViewById(R.id.btnComplete);
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String title = mEditTexttitle.getText().toString();
-                String addressinput = mEditTextaddressinput.getText().toString();
-                String cropinput =  mEditTextcropinput.getText().toString();
+                String addressInput = mEditTextaddressinput.getText().toString();
+                String cropInput =  mEditTextcropinput.getText().toString();
                 String content = mEditTextcontent.getText().toString();
 
                 InsertData task = new InsertData();
-                task.execute("http://" + "ec2-3-134-104-28.us-east-2.compute.amazonaws.com" + "/insert.php", title, addressinput, cropinput, content);
+                task.execute("http://" + "ec2-3-134-104-28.us-east-2.compute.amazonaws.com" + "/insert.php", title, addressInput, cropInput, content);
 
 
                 mEditTexttitle.setText("");
@@ -92,13 +93,13 @@ public class Seller extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            String title = (String)params[1];
-            String addressinput = (String)params[2];
-            String cropinput = (String)params[3];
-            String content = (String)params[4];
+            String title = params[1];
+            String addressInput = params[2];
+            String cropInput = params[3];
+            String content = params[4];
 
-            String serverURL = (String)params[0];
-            String postParameters = "title=" + title + "&addressinput" +addressinput+"&cropinput"+cropinput+"&content=" + content;
+            String serverURL = params[0];
+            String postParameters = "title=" + title +"&content=" + content+ "&addressInput=" +addressInput+"&cropInput="+cropInput;
 
 
             try {
@@ -114,7 +115,7 @@ public class Seller extends AppCompatActivity {
 
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.write(postParameters.getBytes(StandardCharsets.UTF_8));
                 outputStream.flush();
                 outputStream.close();
 
@@ -131,7 +132,7 @@ public class Seller extends AppCompatActivity {
                 }
 
 
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
@@ -152,7 +153,7 @@ public class Seller extends AppCompatActivity {
 
                 Log.d(TAG, "InsertData: Error ", e);
 
-                return new String("Error: " + e.getMessage());
+                return "Error: " + e.getMessage();
             }
 
         }

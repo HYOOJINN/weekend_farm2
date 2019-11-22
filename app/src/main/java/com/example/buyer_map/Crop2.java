@@ -24,7 +24,7 @@ public class Crop2 extends AppCompatActivity  {
         setContentView(R.layout.activity_crop);
 
 
-        mList = (ListView) findViewById(R.id.listView);
+        mList = findViewById(R.id.listView);
         mList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         //mList.setBackgroundColor(Color.);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(

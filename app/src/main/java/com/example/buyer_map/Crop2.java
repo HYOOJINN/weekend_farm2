@@ -24,7 +24,7 @@ public class Crop2 extends AppCompatActivity  {
         setContentView(R.layout.activity_crop);
 
 
-        mList = findViewById(R.id.listView);
+        mList = (ListView) findViewById(R.id.listView);
         mList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         //mList.setBackgroundColor(Color.);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -40,30 +40,5 @@ public class Crop2 extends AppCompatActivity  {
         Toast.makeText(getApplicationContext(), "농작물 선택을 완료하였습니다.", Toast.LENGTH_LONG).show();
     }
 
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.btnGet:
-//                SparseBooleanArray booleans = mList.getCheckedItemPositions();
-//                StringBuilder sb = new StringBuilder();
-//                for (int i = 0; i < data.length; i++) {
-//                    if (booleans.get(i)) {
-//                        sb.append(data[i]);
-//                    }
-//                }
-//                Toast.makeText(getApplicationContext(), sb.toString(),
-//                        Toast.LENGTH_SHORT).show();
-//                break;
-//
-//            default:
-//                break;
-//        }
-//    }
-
 
 }
-
-
-
-
-
-

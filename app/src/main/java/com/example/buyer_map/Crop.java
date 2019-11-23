@@ -61,10 +61,10 @@ public class Crop extends AppCompatActivity  {
 
     public void ClickButton(View v) {
 
-        Intent resultIntent2 = new Intent();
-        resultIntent2.putExtra("crop", selected_crop.getText().toString());
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("crop", selected_crop.getText().toString());
 
-        setResult(Code2.resultCode2, resultIntent2);
+        setResult(Code2.resultCode2, resultIntent);
         finish();
         Toast.makeText(getApplicationContext(), "농작물 선택을 완료하였습니다.", Toast.LENGTH_LONG).show();
     }

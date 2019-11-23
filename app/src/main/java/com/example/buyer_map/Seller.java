@@ -81,7 +81,6 @@ public class Seller extends AppCompatActivity {
             }
         });
 
-
     }
 
     class InsertData extends AsyncTask<String, Void, String> {
@@ -197,7 +196,6 @@ public class Seller extends AppCompatActivity {
         Intent intent=new Intent(getApplicationContext(),Information.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(),"입력완료",Toast.LENGTH_LONG).show();
-
 
     }
 

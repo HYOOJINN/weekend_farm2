@@ -44,7 +44,7 @@
         android:cacheColorHint="#FFF9F7E8" />
 
     <ImageButton
-        android:id="@+id/btnGet"
+        android:id="@+id/btnGet2"
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_marginStart="140dp"

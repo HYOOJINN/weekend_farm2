@@ -6,8 +6,17 @@
     android:layout_height="match_parent"
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
     tools:showIn="@layout/activity_farm">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,7 +24,7 @@
         android:textSize="26sp"
         android:layout_marginRight="8dp"
         android:id="@+id/textView1"
-        android:text="Filter Text" />
+        android:text="주소 검색" />
 
     <EditText
         android:layout_width="match_parent"
@@ -23,11 +32,45 @@
         android:layout_toRightOf="@id/textView1"
         android:id="@+id/editTextFilter"/>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/textView2"
+            android:text="선택한 주소" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/selected_address"/>
+
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#189BA3"
+            android:onClick="OnClickHandle"
+            android:text="확인"
+            android:layout_margin="10dp"/>
+
     <ListView
+        android:id="@+id/listview1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/editTextFilter"
-        android:textFilterEnabled="true"
-        android:id="@+id/listview1"/>
+        android:textFilterEnabled="true" />
 
+    </LinearLayout>
 </RelativeLayout>

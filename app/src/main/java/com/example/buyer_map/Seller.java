@@ -22,6 +22,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+class Code {
+    public static int requestCode = 100;
+    public static int resultCode = 1;
+}
+
 public class Seller extends AppCompatActivity {
 
     private static String IP_ADDRESS = "ec2-3-134-104-28.us-east-2.compute.amazonaws.com";
@@ -47,6 +52,7 @@ public class Seller extends AppCompatActivity {
 
         mTextViewsqltext.setMovementMethod(new ScrollingMovementMethod());
 
+
         Button buttonInsert = findViewById(R.id.btnComplete);
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +72,9 @@ public class Seller extends AppCompatActivity {
 
             }
         });
+
+        //farm에서 정보가져오기
+
 
     }
 

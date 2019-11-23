@@ -27,16 +27,22 @@ class Code {
     public static int resultCode = 1;
 }
 
+class Code2 {
+    public static int requestCode2 = 200;
+    public static int resultCode2 = 2;
+}
+
 public class Seller extends AppCompatActivity {
 
     private static String IP_ADDRESS = "ec2-3-134-104-28.us-east-2.compute.amazonaws.com";
     private static String TAG = "phptest";
 
     private EditText mEditTexttitle;
-    private EditText mEditTextaddressinput;
-    private EditText mEditTextcropinput;
+    private TextView mEditTextaddressinput; //intent
+    private TextView mEditTextcropinput;
     private EditText mEditTextcontent;
     private TextView mTextViewsqltext;
+
 
 
     @Override
@@ -45,8 +51,8 @@ public class Seller extends AppCompatActivity {
         setContentView(R.layout.activity_seller);
 
         mEditTexttitle = findViewById(R.id.title);
-        mEditTextaddressinput = findViewById(R.id.addressInput);
-        mEditTextcropinput = findViewById(R.id.cropInput);
+        mEditTextaddressinput = (TextView)findViewById(R.id.addressInput);
+        mEditTextcropinput = (TextView)findViewById(R.id.cropInput);
         mEditTextcontent = findViewById(R.id.content);
         mTextViewsqltext = findViewById(R.id.sqltext);
 
@@ -68,12 +74,12 @@ public class Seller extends AppCompatActivity {
 
 
                 mEditTexttitle.setText("");
+                mEditTextaddressinput.setText("");
+                mEditTextcropinput.setText("");
                 mEditTextcontent.setText("");
 
             }
         });
-
-        //farm에서 정보가져오기
 
 
     }
@@ -172,13 +178,13 @@ public class Seller extends AppCompatActivity {
 
     public void buttonAdd(View v){
         Intent intent=new Intent(getApplicationContext(),Farm.class);
-        startActivity(intent);
+        startActivityForResult(intent, Code.requestCode);
         Toast.makeText(getApplicationContext(),"주소 검색 버튼을 눌렀습니다",Toast.LENGTH_LONG).show();
     }
 
     public void buttonCr(View v){
-        Intent intent=new Intent(getApplicationContext(),Crop.class);
-        startActivity(intent);
+        Intent intent2=new Intent(getApplicationContext(),Crop.class);
+        startActivityForResult(intent2, Code2.requestCode2);
         Toast.makeText(getApplicationContext(),"작물 검색 버튼을 눌렀습니다",Toast.LENGTH_LONG).show();
     }
     public void btnHot(View v){
@@ -193,6 +199,21 @@ public class Seller extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),"입력완료",Toast.LENGTH_LONG).show();
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+
+        super.onActivityResult(requestCode, resultCode, resultIntent);
+
+        if (requestCode == Code.requestCode && resultCode == Code.resultCode) {
+            mEditTextaddressinput.setText(resultIntent.getStringExtra("address"));
+            // mEditTextcropinput.setText(mEditTextcropinput.getText());
+        }
+        else if (requestCode == Code2.requestCode2 && resultCode == Code2.resultCode2) {
+            // mEditTextaddressinput.setText(mEditTextaddressinput.getText());
+            mEditTextcropinput.setText(resultIntent.getStringExtra("crop"));
+        }
     }
 
 

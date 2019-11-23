@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -183,6 +184,7 @@ public class Farm extends AppCompatActivity {
 
         setResult(Code.resultCode, resultIntent);
         finish();
+        Toast.makeText(getApplicationContext(), "농장 선택을 완료하였습니다.", Toast.LENGTH_LONG).show();
     }
 
 }

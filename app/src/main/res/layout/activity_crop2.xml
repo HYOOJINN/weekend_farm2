@@ -41,7 +41,8 @@
             android:layout_weight="0.3"
             android:layout_height="match_parent"
             android:onClick="nextgo"
-            android:text="next" />
+            android:text="next"
+            tools:ignore="OnClick" />
 
     </LinearLayout>
 
@@ -51,9 +52,4 @@
         android:layout_weight="0.4"
         android:id="@+id/listView_main_list"/>
 
-    <TextView
-        android:id="@+id/textView_main_result"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4" />
 </LinearLayout>

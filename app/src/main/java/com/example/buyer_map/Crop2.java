@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,15 +30,12 @@ import java.util.HashMap;
 
 
 public class Crop2 extends AppCompatActivity {
-
     private static String TAG = "phpquerytest";
 
     private static final String TAG_JSON="webnautes";
-    private static final String TAG_SCODE = "s_code";
-    private static final String TAG_CNAME = "c_name";
+
     private static final String TAG_FADDRESS ="f_address";
 
-    private TextView mTextViewResult;
     ArrayList<HashMap<String, String>> mArrayList;
     ListView mListViewList;
     EditText mEditTextSearchKeyword1;
@@ -57,11 +53,8 @@ public class Crop2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop2);
 
-        mTextViewResult = (TextView)findViewById(R.id.textView_main_result);
         mListViewList = (ListView) findViewById(R.id.listView_main_list);
         mEditTextSearchKeyword1 = (EditText) findViewById(R.id.editText_main_searchKeyword1);
-
-
 
         Button button_search = (Button) findViewById(R.id.button_main_search);
         button_search.setOnClickListener(new View.OnClickListener() {
@@ -69,16 +62,11 @@ public class Crop2 extends AppCompatActivity {
 
                 mArrayList.clear();
 
-
                 GetData task = new GetData();
                 task.execute( mEditTextSearchKeyword1.getText().toString());
             }
         });
-
-
         mArrayList = new ArrayList<>();
-
-
     }
 
 
@@ -101,18 +89,11 @@ public class Crop2 extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            mTextViewResult.setText(result);
             Log.d(TAG, "response - " + result);
 
-            if (result == null){
+            mJsonString = result;
+            showResult();
 
-                mTextViewResult.setText(errorString);
-            }
-            else {
-
-                mJsonString = result;
-                showResult();
-            }
         }
 
 
@@ -122,7 +103,7 @@ public class Crop2 extends AppCompatActivity {
             String searchKeyword1 = params[0];
 
 
-            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/query.php";
+            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/query3.php";;
             String postParameters = "c_name=" + searchKeyword1 ;
 
 
@@ -195,14 +176,10 @@ public class Crop2 extends AppCompatActivity {
 
                 JSONObject item = jsonArray.getJSONObject(i);
 
-                String s_code = item.getString(TAG_SCODE);
-                String c_name = item.getString(TAG_CNAME);
                 String f_address = item.getString(TAG_FADDRESS);
 
                 HashMap<String,String> hashMap = new HashMap<>();
 
-                hashMap.put(TAG_SCODE, s_code);
-                hashMap.put(TAG_CNAME, c_name);
                 hashMap.put(TAG_FADDRESS, f_address);
 
                 mArrayList.add(hashMap);
@@ -210,8 +187,8 @@ public class Crop2 extends AppCompatActivity {
 
             ListAdapter adapter = new SimpleAdapter(
                     Crop2.this, mArrayList, R.layout.item_list,
-                    new String[]{TAG_SCODE,TAG_CNAME, TAG_FADDRESS},
-                    new int[]{R.id.textView_list_id, R.id.textView_list_name, R.id.textView_list_address}
+                    new String[]{TAG_FADDRESS},
+                    new int[]{R.id.textView_list_address}
             );
 
             mListViewList.setAdapter(adapter);

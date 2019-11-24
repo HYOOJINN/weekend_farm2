@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -79,6 +80,8 @@ public class MainActivity extends AppCompatActivity
 
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
     // (참고로 Toast에서는 Context가 필요했습니다.)
+
+    ArrayList arraylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +136,28 @@ public class MainActivity extends AppCompatActivity
         mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(farm2));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+
+
+////////주소 받아와서 마커찍기 /////////////////
+        arraylist = new ArrayList();
+        arraylist = getIntent().getParcelableArrayListExtra("key");
+
+        for(int i = 0; i <arraylist.size(); i++){
+
+            float lan = (float)arraylist.get(i);
+
+
+
+            System.out.println(arraylist.get(i));
+
+        }
+
+
+
+
+
+
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동

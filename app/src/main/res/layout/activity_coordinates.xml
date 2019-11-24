@@ -43,10 +43,22 @@
 
     </LinearLayout>
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:id="@+id/listView_main_list"/>
+        android:orientation="horizontal">
+
+        <ListView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/listView_main_list"/>
+
+        <ListView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/listView_main_list2"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textvieww"
@@ -55,7 +67,7 @@
         android:text="농작물 종류" />
 
     <ListView
-        android:id="@+id/xy_list"
+        android:id="@+id/crop_list"
         android:layout_width="match_parent"
         android:layout_height="421dp"
         android:cacheColorHint="#FFF9F7E8"></ListView>

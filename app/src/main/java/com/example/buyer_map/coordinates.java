@@ -45,13 +45,16 @@ public class coordinates extends AppCompatActivity {
     private static final String TAG_x ="x";
     private static final String TAG_y ="y";
 
-    ArrayList<HashMap<String, String>> mArrayList;
+    ArrayList<HashMap<String, String>> mArrayList2;
+    ArrayList<HashMap<String, String>> mArrayList3;
     ListView mListViewList;
+    ListView mListViewList2;
     TextView mEditTextSearchKeyword1;
     String mJsonString;
 
     public void nextgo(View v) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        //intent.putParcelableArrayListExtra("key",mArrayList2);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
     }
@@ -61,7 +64,7 @@ public class coordinates extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crop2);
+        setContentView(R.layout.activity_coordinates);
 
 
         //작물 리스트에서 선택한 값 textview에 출력
@@ -69,6 +72,7 @@ public class coordinates extends AppCompatActivity {
 
         mList = (ListView) findViewById(R.id.crop_list);
         selected_crop2 = (TextView)findViewById(R.id.selected_crop2);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, data);
         mList.setAdapter(adapter);
@@ -91,19 +95,25 @@ public class coordinates extends AppCompatActivity {
 
         //선택한 작물의 주소 list 형식으로 불러오기
         mListViewList = (ListView) findViewById(R.id.listView_main_list);
+        mListViewList2 = (ListView) findViewById(R.id.listView_main_list2);
+
         mEditTextSearchKeyword1 = (TextView) findViewById(R.id.selected_crop2);
 
         Button button_search = (Button) findViewById(R.id.button_main_search);
         button_search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                mArrayList.clear();
+                mArrayList2.clear();
+                mArrayList3.clear();
 
                 GetData task = new GetData();
+                GetData task2 = new GetData();
                 task.execute( mEditTextSearchKeyword1.getText().toString());
+                task2.execute( mEditTextSearchKeyword1.getText().toString());
             }
         });
-        mArrayList = new ArrayList<>();
+        mArrayList2 = new ArrayList<>();
+        mArrayList3 = new ArrayList<>();
 
     }
 
@@ -112,7 +122,7 @@ public class coordinates extends AppCompatActivity {
         selected_crop2 = (TextView)findViewById(R.id.selected_crop2);
     }
 
-    private class GetData extends AsyncTask<String, Void, String>{
+    public class GetData extends AsyncTask<String, Void, String>{
 
         ProgressDialog progressDialog;
         String errorString = null;
@@ -144,9 +154,9 @@ public class coordinates extends AppCompatActivity {
 
             String searchKeyword1 = params[0];
 
+            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/query7.php";
 
-            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/query7.php";;
-            String postParameters = "c_name=" + searchKeyword1 ;
+            String postParameters = "c_name=" + searchKeyword1;
 
 
             try {
@@ -172,10 +182,9 @@ public class coordinates extends AppCompatActivity {
                 Log.d(TAG, "response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
@@ -186,7 +195,7 @@ public class coordinates extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
                 String line;
 
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
 
@@ -206,10 +215,13 @@ public class coordinates extends AppCompatActivity {
             }
 
         }
-    }
+
+        }
 
 
     private void showResult(){
+
+        //x좌표 찍기
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
@@ -219,24 +231,57 @@ public class coordinates extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String x = item.getString(TAG_x);
-                String y = item.getString(TAG_y);
 
                 HashMap<String,String> hashMap = new HashMap<>();
 
                 hashMap.put(TAG_x, x);
-                hashMap.put(TAG_y, y);
 
-
-                mArrayList.add(hashMap);
+                mArrayList2.add(hashMap);
             }
 
             ListAdapter adapter = new SimpleAdapter(
-                    coordinates.this, mArrayList, R.layout.list_xy,
-                    new String[]{TAG_x, TAG_y},
-                    new int[]{R.id.x_coordinates, R.id.y_coordinates}
+                    coordinates.this, mArrayList2, R.layout.list_xy,
+                    new String[]{TAG_x},
+                    new int[]{R.id.x_coordinates}
             );
 
+
             mListViewList.setAdapter(adapter);
+
+
+        } catch (JSONException e) {
+
+            Log.d(TAG, "showResult : ", e);
+        }
+
+
+        //y좌표 찍기
+        try {
+            JSONObject jsonObject = new JSONObject(mJsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+
+            for(int i=0;i<jsonArray.length();i++){
+
+                JSONObject item = jsonArray.getJSONObject(i);
+
+                String y = item.getString(TAG_y);
+
+                HashMap<String,String> hashMap = new HashMap<>();
+
+                hashMap.put(TAG_y, y);
+
+                mArrayList3.add(hashMap);
+            }
+
+            ListAdapter adapter = new SimpleAdapter(
+                    coordinates.this, mArrayList3, R.layout.list_y,
+                    new String[]{TAG_y},
+                    new int[]{R.id.y_coordinates}
+            );
+
+
+            mListViewList2.setAdapter(adapter);
+
 
         } catch (JSONException e) {
 
@@ -244,5 +289,6 @@ public class coordinates extends AppCompatActivity {
         }
 
     }
+
 
 }

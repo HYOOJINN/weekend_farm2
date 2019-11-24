@@ -18,6 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".coordinates"></activity>
+        <activity android:name=".Crop3" />
         <activity android:name=".Test" />
         <activity android:name=".Crop2" />
         <activity android:name=".hotItem" />

@@ -31,13 +31,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Crop2 extends AppCompatActivity {
+public class Crop3 extends AppCompatActivity {
+
 
     //작물 리스트
     private ListView mList;
     private String[] data = { "고구마", "감자", "깻잎", "상추", "무", "고추", "호박", "가지", "대파", "양파", "당근", "쑥갓",
             "열무", "방울토마토", "부추", "옥수수", "치커리", "가지", "미나리"};
-    private TextView selected_crop2;
+    private TextView selected_crop3;
 
     //선택한 작물 기반 주소 출력
     private static String TAG = "phpquerytest";
@@ -50,7 +51,7 @@ public class Crop2 extends AppCompatActivity {
     String mJsonString;
 
     public void nextgo(View v) {
-        Intent intent = new Intent(getApplicationContext(), coordinates.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
     }
@@ -60,14 +61,14 @@ public class Crop2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crop2);
+        setContentView(R.layout.activity_crop3);
 
 
         //작물 리스트에서 선택한 값 textview에 출력
         this.getEditTextObject();
 
         mList = (ListView) findViewById(R.id.crop_list);
-        selected_crop2 = (TextView)findViewById(R.id.selected_crop2);
+        selected_crop3 = (TextView)findViewById(R.id.selected_crop3);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, data);
         mList.setAdapter(adapter);
@@ -83,14 +84,14 @@ public class Crop2 extends AppCompatActivity {
                 String selected_item2 = (String)adapterView.getItemAtPosition(position);
 
                 //텍스트뷰에 출력
-                selected_crop2.setText(selected_item2);
+                selected_crop3.setText(selected_item2);
             }
         });
 
 
-    //선택한 작물의 주소 list 형식으로 불러오기
+        //선택한 작물의 주소 list 형식으로 불러오기
         mListViewList = (ListView) findViewById(R.id.listView_main_list);
-        mEditTextSearchKeyword1 = (TextView) findViewById(R.id.selected_crop2);
+        mEditTextSearchKeyword1 = (TextView) findViewById(R.id.selected_crop3);
 
         Button button_search = (Button) findViewById(R.id.button_main_search);
         button_search.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +109,7 @@ public class Crop2 extends AppCompatActivity {
 
     //작물 리스트에서 선택한 값 textview에 출력
     public void getEditTextObject(){
-        selected_crop2 = (TextView)findViewById(R.id.selected_crop2);
+        selected_crop3 = (TextView)findViewById(R.id.selected_crop3);
     }
 
     private class GetData extends AsyncTask<String, Void, String>{
@@ -120,7 +121,7 @@ public class Crop2 extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(Crop2.this,
+            progressDialog = ProgressDialog.show(Crop3.this,
                     "Please Wait", null, true, true);
         }
 
@@ -227,7 +228,7 @@ public class Crop2 extends AppCompatActivity {
             }
 
             ListAdapter adapter = new SimpleAdapter(
-                    Crop2.this, mArrayList, R.layout.item_list,
+                    Crop3.this, mArrayList, R.layout.item_list,
                     new String[]{TAG_FADDRESS},
                     new int[]{R.id.textView_list_address}
             );

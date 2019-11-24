@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Crop2 extends AppCompatActivity {
+public class coordinates extends AppCompatActivity {
 
     //작물 리스트
     private ListView mList;
@@ -42,7 +42,8 @@ public class Crop2 extends AppCompatActivity {
     //선택한 작물 기반 주소 출력
     private static String TAG = "phpquerytest";
     private static final String TAG_JSON="webnautes";
-    private static final String TAG_FADDRESS ="f_address";
+    private static final String TAG_x ="x";
+    private static final String TAG_y ="y";
 
     ArrayList<HashMap<String, String>> mArrayList;
     ListView mListViewList;
@@ -50,7 +51,7 @@ public class Crop2 extends AppCompatActivity {
     String mJsonString;
 
     public void nextgo(View v) {
-        Intent intent = new Intent(getApplicationContext(), coordinates.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
     }
@@ -88,7 +89,7 @@ public class Crop2 extends AppCompatActivity {
         });
 
 
-    //선택한 작물의 주소 list 형식으로 불러오기
+        //선택한 작물의 주소 list 형식으로 불러오기
         mListViewList = (ListView) findViewById(R.id.listView_main_list);
         mEditTextSearchKeyword1 = (TextView) findViewById(R.id.selected_crop2);
 
@@ -120,7 +121,7 @@ public class Crop2 extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(Crop2.this,
+            progressDialog = ProgressDialog.show(coordinates.this,
                     "Please Wait", null, true, true);
         }
 
@@ -144,7 +145,7 @@ public class Crop2 extends AppCompatActivity {
             String searchKeyword1 = params[0];
 
 
-            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/query4.php";;
+            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/query7.php";;
             String postParameters = "c_name=" + searchKeyword1 ;
 
 
@@ -217,19 +218,22 @@ public class Crop2 extends AppCompatActivity {
 
                 JSONObject item = jsonArray.getJSONObject(i);
 
-                String f_address = item.getString(TAG_FADDRESS);
+                String x = item.getString(TAG_x);
+                String y = item.getString(TAG_y);
 
                 HashMap<String,String> hashMap = new HashMap<>();
 
-                hashMap.put(TAG_FADDRESS, f_address);
+                hashMap.put(TAG_x, x);
+                hashMap.put(TAG_y, y);
+
 
                 mArrayList.add(hashMap);
             }
 
             ListAdapter adapter = new SimpleAdapter(
-                    Crop2.this, mArrayList, R.layout.item_list,
-                    new String[]{TAG_FADDRESS},
-                    new int[]{R.id.textView_list_address}
+                    coordinates.this, mArrayList, R.layout.list_xy,
+                    new String[]{TAG_x, TAG_y},
+                    new int[]{R.id.x_coordinates, R.id.y_coordinates}
             );
 
             mListViewList.setAdapter(adapter);

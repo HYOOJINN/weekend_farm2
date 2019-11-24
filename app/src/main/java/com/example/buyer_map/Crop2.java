@@ -1,16 +1,18 @@
 package com.example.buyer_map;
-
+//구매자 버튼에서 연결되는 crop
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,15 +32,21 @@ import java.util.HashMap;
 
 
 public class Crop2 extends AppCompatActivity {
+
+    //작물 리스트
+    private ListView mList;
+    private String[] data = { "고구마", "감자", "깻잎", "상추", "무", "고추", "호박", "가지", "대파", "양파", "당근", "쑥갓",
+            "열무", "방울토마토", "부추", "옥수수", "치커리", "가지", "미나리"};
+    private TextView selected_crop2;
+
+    //선택한 작물 기반 주소 출력
     private static String TAG = "phpquerytest";
-
     private static final String TAG_JSON="webnautes";
-
     private static final String TAG_FADDRESS ="f_address";
 
     ArrayList<HashMap<String, String>> mArrayList;
     ListView mListViewList;
-    EditText mEditTextSearchKeyword1;
+    TextView mEditTextSearchKeyword1;
     String mJsonString;
 
     public void nextgo(View v) {
@@ -47,14 +55,42 @@ public class Crop2 extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop2);
 
+
+        //작물 리스트에서 선택한 값 textview에 출력
+        this.getEditTextObject();
+
+        mList = (ListView) findViewById(R.id.crop_list);
+        selected_crop2 = (TextView)findViewById(R.id.selected_crop2);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, data);
+        mList.setAdapter(adapter);
+
+        //리스트뷰의 아이템을 클릭시 해당 아이템의 문자열을 가져오기 위한 처리
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView,
+                                    View view, int position, long id) {
+
+                //클릭한 아이템의 문자열을 가져옴
+                String selected_item2 = (String)adapterView.getItemAtPosition(position);
+
+                //텍스트뷰에 출력
+                selected_crop2.setText(selected_item2);
+            }
+        });
+
+
+    //선택한 작물의 주소 list 형식으로 불러오기
         mListViewList = (ListView) findViewById(R.id.listView_main_list);
-        mEditTextSearchKeyword1 = (EditText) findViewById(R.id.editText_main_searchKeyword1);
+        mEditTextSearchKeyword1 = (TextView) findViewById(R.id.selected_crop2);
 
         Button button_search = (Button) findViewById(R.id.button_main_search);
         button_search.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +103,13 @@ public class Crop2 extends AppCompatActivity {
             }
         });
         mArrayList = new ArrayList<>();
+
     }
 
+    //작물 리스트에서 선택한 값 textview에 출력
+    public void getEditTextObject(){
+        selected_crop2 = (TextView)findViewById(R.id.selected_crop2);
+    }
 
     private class GetData extends AsyncTask<String, Void, String>{
 

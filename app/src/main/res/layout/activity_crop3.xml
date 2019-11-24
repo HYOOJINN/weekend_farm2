@@ -41,7 +41,8 @@
             android:layout_weight="0.3"
             android:layout_height="match_parent"
             android:onClick="nextgo"
-            android:text="next" />
+            android:text="next"
+            tools:ignore="OnClick" />
 
     </LinearLayout>
 

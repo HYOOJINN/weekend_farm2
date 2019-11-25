@@ -159,6 +159,27 @@ public class MainActivity extends AppCompatActivity
             Log.d("###", arraylist_y[k]);
         }
 
+        double[] double_arrX = new double[arraylist_x.length];
+
+        for(int i = 0; i<arraylist_x.length; i++){
+            double_arrX[i] = Double.parseDouble(arraylist_x[i]);
+        }
+
+        double[] double_arrY = new double[arraylist_y.length];
+
+        for(int i = 0; i<arraylist_y.length; i++){
+            double_arrY[i] = Double.parseDouble(arraylist_y[i]);
+        }
+
+
+
+        LatLng farm3 = new LatLng(double_arrX[0], double_arrY[0]);
+        markerOptions.position(farm3);
+        markerOptions.title("상추상추");
+        mMap.addMarker(markerOptions);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(farm3));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
 
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에

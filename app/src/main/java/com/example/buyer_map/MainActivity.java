@@ -40,6 +40,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -81,7 +82,12 @@ public class MainActivity extends AppCompatActivity
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
     // (참고로 Toast에서는 Context가 필요했습니다.)
 
-    ArrayList arraylist;
+//    ArrayList<HashMap<String, String>> arraylist_x;
+//    ArrayList<HashMap<String, String>> arraylist_y;
+
+    String[] arraylist_x;
+    String[] arraylist_y;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,22 +146,18 @@ public class MainActivity extends AppCompatActivity
 
 
 ////////주소 받아와서 마커찍기 /////////////////
-        arraylist = new ArrayList();
-        arraylist = getIntent().getParcelableArrayListExtra("key");
-
-        for(int i = 0; i <arraylist.size(); i++){
-
-            float lan = (float)arraylist.get(i);
 
 
-
-            System.out.println(arraylist.get(i));
-
+        Intent intent = getIntent();
+        arraylist_x = intent.getExtras().getStringArray("arr_x");
+        for(int j = 0; j<  arraylist_x.length; j++){
+            Log.d("###", arraylist_x[j]);
         }
 
-
-
-
+        arraylist_y = intent.getExtras().getStringArray("arr_y");
+        for(int k = 0; k<  arraylist_y.length; k++){
+            Log.d("###", arraylist_y[k]);
+        }
 
 
 

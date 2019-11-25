@@ -38,7 +38,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +50,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity
         implements OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback{
+
 
     private GoogleMap mMap;
     private Marker currentMarker = null;
@@ -82,12 +82,11 @@ public class MainActivity extends AppCompatActivity
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
     // (참고로 Toast에서는 Context가 필요했습니다.)
 
+//    ArrayList<HashMap<String, String>> arraylist_x;
+//    ArrayList<HashMap<String, String>> arraylist_y;
+
     String[] arraylist_x;
     String[] arraylist_y;
-    double[] double_arrX;
-    double[] double_arrY;
-    double[] Distance;
-
 
 
     @Override
@@ -129,38 +128,64 @@ public class MainActivity extends AppCompatActivity
 
         mMap = googleMap;
 
+        LatLng farm1 = new LatLng(37.490287, 126.914801);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(farm1);
+        markerOptions.title("보라매주말농장");
+        mMap.addMarker(markerOptions);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(farm1));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+        LatLng farm2 = new LatLng(37.469437, 126.908536);
+        markerOptions.position(farm2);
+        markerOptions.title("감로천주말농장");
+        mMap.addMarker(markerOptions);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(farm2));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+
 
 ////////주소 받아와서 마커찍기 /////////////////
 
 
         Intent intent = getIntent();
         arraylist_x = intent.getExtras().getStringArray("arr_x");
+        for(int j = 0; j<  arraylist_x.length; j++){
+            Log.d("###", arraylist_x[j]);
+        }
 
         arraylist_y = intent.getExtras().getStringArray("arr_y");
+        for(int k = 0; k<  arraylist_y.length; k++){
+            Log.d("###", arraylist_y[k]);
+        }
 
-        double_arrX = new double[arraylist_x.length];
+        double[] double_arrX = new double[arraylist_x.length];
 
         for(int i = 0; i<arraylist_x.length; i++){
             double_arrX[i] = Double.parseDouble(arraylist_x[i]);
         }
 
-        double_arrY = new double[arraylist_y.length];
+        double[] double_arrY = new double[arraylist_y.length];
 
         for(int i = 0; i<arraylist_y.length; i++){
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
         }
 
 
-        for(int i = 0; i<double_arrX.length; i++){
-            MarkerOptions farm = new  MarkerOptions();
-            farm.position(new LatLng(double_arrX[i], double_arrY[i])).title("농장 정보를 확인하세요");
 
-            mMap.addMarker(farm);
-        }
+        LatLng farm3 = new LatLng(double_arrX[0], double_arrY[0]);
+        markerOptions.position(farm3);
+        markerOptions.title("상추상추");
+        mMap.addMarker(markerOptions);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(farm3));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동
         setDefaultLocation();
+
 
 
         //런타임 퍼미션 처리
@@ -170,11 +195,14 @@ public class MainActivity extends AppCompatActivity
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
+
+
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED   ) {
 
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
+
 
             startLocationUpdates(); // 3. 위치 업데이트 시작
 
@@ -206,6 +234,8 @@ public class MainActivity extends AppCompatActivity
             }
 
         }
+
+
 
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -243,33 +273,14 @@ public class MainActivity extends AppCompatActivity
 
                 //현재 위치에 마커 생성하고 이동
                 setCurrentLocation(location, markerTitle, markerSnippet);
-                mCurrentLocatiion = location;
 
+                mCurrentLocatiion = location;
             }
+
 
         }
 
     };
-
-    public double getDistance(LatLng LatLng1, LatLng LatLng2){
-        /////////거리찍기./////////
-        //double[] Distance;
-        Location location_me = new Location("me");
-        location_me.setLatitude(location.getLatitude());
-        location_me.setLatitude(location.getLongitude());
-
-        for(int i = 0; i<double_arrX.length; i++){
-            Location location_farm = new Location("farm");
-            location_farm.setLatitude(double_arrX[i]);
-            location_me.setLatitude(double_arrY[i]);
-        }
-
-        for(int j = 0; j<double_arrX.length; j++){
-            distance[j] = location_me.distanceTo()(location_farm[j]);
-        }
-
-
-    }
 
 
 
@@ -565,10 +576,13 @@ public class MainActivity extends AppCompatActivity
 
                         Log.d(TAG, "onActivityResult : GPS 활성화 되있음");
 
+
                         needRequest = true;
+
                         return;
                     }
                 }
+
                 break;
         }
     }

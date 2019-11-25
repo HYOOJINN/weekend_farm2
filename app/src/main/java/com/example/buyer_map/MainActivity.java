@@ -39,8 +39,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -128,26 +126,7 @@ public class MainActivity extends AppCompatActivity
 
         mMap = googleMap;
 
-        LatLng farm1 = new LatLng(37.490287, 126.914801);
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(farm1);
-        markerOptions.title("보라매주말농장");
-        mMap.addMarker(markerOptions);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(farm1));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-        LatLng farm2 = new LatLng(37.469437, 126.908536);
-        markerOptions.position(farm2);
-        markerOptions.title("감로천주말농장");
-        mMap.addMarker(markerOptions);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(farm2));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-
-
 ////////주소 받아와서 마커찍기 /////////////////
-
-
         Intent intent = getIntent();
         arraylist_x = intent.getExtras().getStringArray("arr_x");
         for(int j = 0; j<  arraylist_x.length; j++){
@@ -171,21 +150,16 @@ public class MainActivity extends AppCompatActivity
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
         }
 
+        for(int i = 0; i<double_arrX.length; i++){
+            MarkerOptions farm = new  MarkerOptions();
+            farm.position(new LatLng(double_arrX[i], double_arrY[i]));
 
-
-        LatLng farm3 = new LatLng(double_arrX[0], double_arrY[0]);
-        markerOptions.position(farm3);
-        markerOptions.title("상추상추");
-        mMap.addMarker(markerOptions);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(farm3));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-
+            mMap.addMarker(farm);
+        }
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동
         setDefaultLocation();
-
 
 
         //런타임 퍼미션 처리
@@ -195,14 +169,11 @@ public class MainActivity extends AppCompatActivity
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
-
-
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED   ) {
 
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
-
 
             startLocationUpdates(); // 3. 위치 업데이트 시작
 

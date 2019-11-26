@@ -63,6 +63,7 @@ public class Buyer extends AppCompatActivity {
     ///////
     String[] arr_X;
     String[] arr_Y;
+    String[] arr_address;
 
 
 
@@ -70,6 +71,7 @@ public class Buyer extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("arr_x", arr_X);
         intent.putExtra("arr_y", arr_Y);
+        intent.putExtra("arr_address", arr_address);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
     }
@@ -348,6 +350,21 @@ public class Buyer extends AppCompatActivity {
         for (int  k= 0; k < arr_Y.length; k++) {
 
             Log.d("@@@@@@@@YYYYYYYY@@@@@@", arr_Y[k]);
+        }
+
+
+
+        //F_address 받아오기
+        String sum3 = "";
+        for (HashMap<String, String> hash : mArrayList) {
+            for (String current : hash.values()) {
+                sum3 = sum3 + current + "<#>";
+            }
+        }
+        arr_address = sum3.split("<#>");
+
+        for (int  k= 0; k <arr_address.length; k++) {
+            Log.d("@@@@@@@@YYYYYYYY@@@@@@", arr_address[k]);
         }
 
 

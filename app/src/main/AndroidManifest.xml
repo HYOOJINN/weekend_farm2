@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Check2"></activity>
+        <activity android:name=".Check"></activity>
+        <activity android:name=".Check2" />
         <activity android:name=".Buyer" />
         <activity android:name=".coordinates" />
         <activity android:name=".Crop2" />

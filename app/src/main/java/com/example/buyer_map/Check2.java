@@ -155,7 +155,7 @@ public class Check2 extends AppCompatActivity {
     String[] arr_addr;
 
     public void nextgogo(View v) {
-        Intent intent = new Intent(getApplicationContext(), Seller.class);
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         intent.putExtra("arr_addr", arr_addr);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
@@ -185,7 +185,6 @@ public class Check2 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView,
                                     View view, int position, long id) {
 
-
                 //클릭한 아이템의 문자열을 가져옴
                 String selected_item2 = (String)adapterView.getItemAtPosition(position);
 
@@ -194,8 +193,8 @@ public class Check2 extends AppCompatActivity {
             }
         });
 //////////
-        EditText editTextFilter = (EditText) findViewById(R.id.editTextFilter);
-        editTextFilter.addTextChangedListener(new TextWatcher() {
+        EditText editsearch = (EditText) findViewById(R.id.editsearch);
+        editsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable edit) {
                 String filterText2 = edit.toString() ;

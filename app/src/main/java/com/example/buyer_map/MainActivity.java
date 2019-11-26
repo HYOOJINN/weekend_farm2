@@ -13,6 +13,9 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -87,6 +90,12 @@ public class MainActivity extends AppCompatActivity
     String[] arraylist_y;
 
 
+    //buyer에서 받아온 주소 listview에 출력하기
+    String[] arraylist_address;
+    //ListView address_listview;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +125,40 @@ public class MainActivity extends AppCompatActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
+        ///////////////////////////////////////
+        //buyer에서 받아온 주소 listview에 출력하기
+
+        ListView address_listview = (ListView) findViewById(R.id.mark_address_list);
+        Intent intent2 = getIntent();
+        arraylist_address = intent2.getExtras().getStringArray("arr_address");
+        for(int j = 0; j<  arraylist_address.length; j++){
+            Log.d("###", arraylist_address[j]);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, arraylist_address);
+        address_listview.setAdapter(adapter);
+
+
+        //리스트뷰의 아이템을 클릭시 해당 아이템의 문자열을 가져오기 위한 처리
+        address_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView,
+                                    View view, int position, long id) {
+
+                //클릭한 아이템의 문자열을 가져옴
+                String selected_address = (String)adapterView.getItemAtPosition(position);
+
+                //텍스트뷰에 출력
+                //selected_address.setText(selected_item);
+            }
+        });
+
+
+
 
 
     }
@@ -558,8 +601,5 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-
-
-
 }
+

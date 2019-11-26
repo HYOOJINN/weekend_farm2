@@ -59,6 +59,11 @@
 
     </LinearLayout>
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/listView_main_list"/>
+
     <TextView
         android:id="@+id/textvieww"
         android:layout_width="match_parent"
@@ -67,17 +72,10 @@
 
     <ListView
         android:id="@+id/addr_list"
+        android:layout_below="@id/editsearch"
+        android:textFilterEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="421dp"
-        android:cacheColorHint="#FFF9F7E8"
-        android:layout_below="@id/editTextFilter"
-        android:textFilterEnabled="true"></ListView>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/listView_main_list"/>
-
-
+        android:cacheColorHint="#8C8BC34A"></ListView>
 
 </LinearLayout>

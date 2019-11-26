@@ -16,7 +16,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void ClickButton1(View v) {
-        Intent intent = new Intent(getApplicationContext(), Seller.class);
+        Intent intent = new Intent(getApplicationContext(), Check.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "판매자 버튼을 눌렀습니다 ", Toast.LENGTH_LONG).show();
     }

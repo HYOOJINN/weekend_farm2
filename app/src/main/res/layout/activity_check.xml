@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    >
+
+    <ImageButton
+        android:id="@+id/putinfo"
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/seller_button"
+        android:onClick="putinfo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"></ImageButton>
+
+    <ImageButton
+        android:id="@+id/getinfo"
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="55dp"
+        android:background="@drawable/confirm"
+        android:onClick="getinfo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"></ImageButton>
+
+</LinearLayout>

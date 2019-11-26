@@ -184,7 +184,6 @@ public class Farm extends AppCompatActivity {
     {
         Intent resultIntent = new Intent();
         resultIntent.putExtra("address", selected_address.getText().toString());
-
         setResult(Code.resultCode, resultIntent);
         finish();
         Toast.makeText(getApplicationContext(), "농장 선택을 완료하였습니다.", Toast.LENGTH_LONG).show();

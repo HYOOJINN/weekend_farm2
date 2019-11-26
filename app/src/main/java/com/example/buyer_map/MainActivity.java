@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity
     //buyer에서 받아온 주소 listview에 출력하기
     String[] arraylist_address;
     //ListView address_listview;
+    String selected_item;
+    String receive_address;
 
 
 
@@ -128,6 +131,10 @@ public class MainActivity extends AppCompatActivity
 
 
 
+        Intent intent4 = getIntent();
+        receive_address = intent4.getStringExtra("cropFromBuyer");
+
+
         ///////////////////////////////////////
         //buyer에서 받아온 주소 listview에 출력하기
 
@@ -142,6 +149,7 @@ public class MainActivity extends AppCompatActivity
         address_listview.setAdapter(adapter);
 
 
+
         //리스트뷰의 아이템을 클릭시 해당 아이템의 문자열을 가져오기 위한 처리
         address_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -149,12 +157,35 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView,
                                     View view, int position, long id) {
 
-                //클릭한 아이템의 문자열을 가져옴
-                String selected_address = (String)adapterView.getItemAtPosition(position);
+                selected_item = (String)adapterView.getItemAtPosition(position);
 
-                //텍스트뷰에 출력
-                //selected_address.setText(selected_item);
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage(selected_item);
+
+                builder.setPositiveButton("정보 확인", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id){
+
+                        Intent resultIntent2 = new Intent(getApplicationContext(), Information.class);
+                        resultIntent2.putExtra("addressFromMain", selected_item);
+                        resultIntent2.putExtra("cropFromMain", receive_address);
+                        startActivity(resultIntent2);
+                        Toast.makeText(getApplicationContext(), "OK Click", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        Toast.makeText(getApplicationContext(), "Cancel Click", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.show();
             }
+
         });
 
 

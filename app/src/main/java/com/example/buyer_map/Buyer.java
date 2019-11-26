@@ -64,6 +64,7 @@ public class Buyer extends AppCompatActivity {
     String[] arr_X;
     String[] arr_Y;
     String[] arr_address;
+    String selected_item2 ;
 
 
 
@@ -72,8 +73,11 @@ public class Buyer extends AppCompatActivity {
         intent.putExtra("arr_x", arr_X);
         intent.putExtra("arr_y", arr_Y);
         intent.putExtra("arr_address", arr_address);
+        intent.putExtra("cropFromBuyer",selected_item2);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
+
+
     }
 
 
@@ -102,10 +106,11 @@ public class Buyer extends AppCompatActivity {
                                     View view, int position, long id) {
 
                 //클릭한 아이템의 문자열을 가져옴
-                String selected_item2 = (String) adapterView.getItemAtPosition(position);
+                selected_item2 = (String) adapterView.getItemAtPosition(position);
 
                 //텍스트뷰에 출력
                 selected_crop2.setText(selected_item2);
+
             }
         });
 

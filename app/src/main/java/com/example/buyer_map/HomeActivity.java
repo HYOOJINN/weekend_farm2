@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void ClickButton2(View v) {
-        Intent intent = new Intent(getApplicationContext(), Crop2.class);
+        Intent intent = new Intent(getApplicationContext(), Buyer.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "구매자 버튼을 눌렀습니다", Toast.LENGTH_LONG).show();
     }

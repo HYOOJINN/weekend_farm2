@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class coordinates extends AppCompatActivity {
+public class Buyer extends AppCompatActivity {
 
     //작물 리스트
     private ListView mList;
@@ -45,11 +45,14 @@ public class coordinates extends AppCompatActivity {
     private static final String TAG_JSON = "webnautes";
     private static final String TAG_x = "x";
     private static final String TAG_y = "y";
+    private static final String TAG_FADDRESS ="f_address";
 
+    ArrayList<HashMap<String, String>> mArrayList;
     ArrayList<HashMap<String, String>> mArrayList2;
     ArrayList<HashMap<String, String>> mArrayList3;
     ListView mListViewList;
     ListView mListViewList2;
+    ListView mListViewList3;
     TextView mEditTextSearchKeyword1;
     String mJsonString;
 
@@ -70,7 +73,7 @@ public class coordinates extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coordinates);
+        setContentView(R.layout.activity_buyer);
 
 
         //작물 리스트에서 선택한 값 textview에 출력
@@ -101,8 +104,9 @@ public class coordinates extends AppCompatActivity {
 
         //선택한 작물의 주소 list 형식으로 불러오기
 
-        mListViewList = (ListView) findViewById(R.id.listView_main_list);
-        mListViewList2 = (ListView) findViewById(R.id.listView_main_list2);
+        mListViewList = (ListView) findViewById(R.id.listView_address_list);
+        mListViewList2 = (ListView) findViewById(R.id.listView_main_listX);
+        mListViewList3 = (ListView) findViewById(R.id.listView_main_listY);
 
         mEditTextSearchKeyword1 = (TextView) findViewById(R.id.selected_crop2);
 
@@ -110,15 +114,20 @@ public class coordinates extends AppCompatActivity {
         button_search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                mArrayList.clear();
                 mArrayList2.clear();
                 mArrayList3.clear();
 
                 GetData task = new GetData();
                 GetData task2 = new GetData();
+                GetData task3 = new GetData();
+
                 task.execute(mEditTextSearchKeyword1.getText().toString());
                 task2.execute(mEditTextSearchKeyword1.getText().toString());
+                task3.execute(mEditTextSearchKeyword1.getText().toString());
             }
         });
+        mArrayList = new ArrayList<>();
         mArrayList2 = new ArrayList<>();
         mArrayList3 = new ArrayList<>();
 
@@ -138,7 +147,7 @@ public class coordinates extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(coordinates.this,
+            progressDialog = ProgressDialog.show(Buyer.this,
                     "Please Wait", null, true, true);
         }
 
@@ -160,16 +169,13 @@ public class coordinates extends AppCompatActivity {
 
             String searchKeyword1 = params[0];
 
-            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/query7.php";
-
+            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/query10.php";
             String postParameters = "c_name=" + searchKeyword1;
-
 
             try {
 
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
 
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
@@ -177,12 +183,10 @@ public class coordinates extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
 
-
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
                 outputStream.close();
-
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d(TAG, "response code - " + responseStatusCode);
@@ -194,7 +198,6 @@ public class coordinates extends AppCompatActivity {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -205,18 +208,13 @@ public class coordinates extends AppCompatActivity {
                     sb.append(line);
                 }
 
-
                 bufferedReader.close();
-
-
                 return sb.toString().trim();
-
 
             } catch (Exception e) {
 
                 Log.d(TAG, "InsertData: Error ", e);
                 errorString = e.toString();
-
                 return null;
             }
 
@@ -226,6 +224,33 @@ public class coordinates extends AppCompatActivity {
 
 
     private void showResult() {
+        //주소찍기기
+        try {
+            JSONObject jsonObject = new JSONObject(mJsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+
+            for(int i=0;i<jsonArray.length();i++){
+
+                JSONObject item = jsonArray.getJSONObject(i);
+
+                String f_address = item.getString(TAG_FADDRESS);
+
+                HashMap<String,String> hashMap = new HashMap<>();
+
+                hashMap.put(TAG_FADDRESS, f_address);
+
+                mArrayList.add(hashMap);
+            }
+            ListAdapter adapter = new SimpleAdapter(
+                    Buyer.this, mArrayList, R.layout.item_list,
+                    new String[]{TAG_FADDRESS},
+                    new int[]{R.id.textView_list_address}
+            );
+            mListViewList.setAdapter(adapter);
+        } catch (JSONException e) {
+            Log.d(TAG, "showResult : ", e);
+        }
+
 
         //x좌표 찍기
         try {
@@ -244,19 +269,13 @@ public class coordinates extends AppCompatActivity {
 
                 mArrayList2.add(hashMap);
             }
-
             ListAdapter adapter = new SimpleAdapter(
-                    coordinates.this, mArrayList2, R.layout.list_xy,
+                    Buyer.this, mArrayList2, R.layout.list_xy,
                     new String[]{TAG_x},
                     new int[]{R.id.x_coordinates}
             );
-
-
-            mListViewList.setAdapter(adapter);
-
-
+            mListViewList2.setAdapter(adapter);
         } catch (JSONException e) {
-
             Log.d(TAG, "showResult : ", e);
         }
 
@@ -275,24 +294,17 @@ public class coordinates extends AppCompatActivity {
                 HashMap<String, String> hashMap2 = new HashMap<>();
 
                 hashMap2.put(TAG_y, y);
-
                 mArrayList3.add(hashMap2);
-
             }
-
-
             ListAdapter adapter = new SimpleAdapter(
-                    coordinates.this, mArrayList3, R.layout.list_y,
+                    Buyer.this, mArrayList3, R.layout.list_y,
                     new String[]{TAG_y},
                     new int[]{R.id.y_coordinates}
             );
-            mListViewList2.setAdapter(adapter);
-
+            mListViewList3.setAdapter(adapter);
         } catch (JSONException e) {
-
             Log.d(TAG, "showResult : ", e);
         }
-
 
 
         ////////////////////////////////////////////////////////////////////

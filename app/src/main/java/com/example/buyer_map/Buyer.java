@@ -30,6 +30,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.buyer_map.R.id.listView_main_listY;
+
 
 public class Buyer extends AppCompatActivity {
 
@@ -54,11 +56,15 @@ public class Buyer extends AppCompatActivity {
     ListView mListViewList2;
     ListView mListViewList3;
     TextView mEditTextSearchKeyword1;
-    String mJsonString;
+    String mJsonString1;
+    String mJsonString2;
+    String mJsonString3;
 
     ///////
     String[] arr_X;
     String[] arr_Y;
+
+
 
     public void nextgo(View v) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -106,7 +112,7 @@ public class Buyer extends AppCompatActivity {
 
         mListViewList = (ListView) findViewById(R.id.listView_address_list);
         mListViewList2 = (ListView) findViewById(R.id.listView_main_listX);
-        mListViewList3 = (ListView) findViewById(R.id.listView_main_listY);
+        mListViewList3 = (ListView) findViewById(listView_main_listY);
 
         mEditTextSearchKeyword1 = (TextView) findViewById(R.id.selected_crop2);
 
@@ -120,11 +126,8 @@ public class Buyer extends AppCompatActivity {
 
                 GetData task = new GetData();
                 GetData task2 = new GetData();
-                GetData task3 = new GetData();
 
                 task.execute(mEditTextSearchKeyword1.getText().toString());
-                task2.execute(mEditTextSearchKeyword1.getText().toString());
-                task3.execute(mEditTextSearchKeyword1.getText().toString());
             }
         });
         mArrayList = new ArrayList<>();
@@ -151,7 +154,6 @@ public class Buyer extends AppCompatActivity {
                     "Please Wait", null, true, true);
         }
 
-
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -159,7 +161,9 @@ public class Buyer extends AppCompatActivity {
             progressDialog.dismiss();
             Log.d(TAG, "response - " + result);
 
-            mJsonString = result;
+            mJsonString1 = result;
+            mJsonString2 = result;
+            mJsonString3 = result;
             showResult();
         }
 
@@ -177,16 +181,19 @@ public class Buyer extends AppCompatActivity {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
+
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
 
+
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
                 outputStream.close();
+
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d(TAG, "response code - " + responseStatusCode);
@@ -198,6 +205,7 @@ public class Buyer extends AppCompatActivity {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
+
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -208,13 +216,18 @@ public class Buyer extends AppCompatActivity {
                     sb.append(line);
                 }
 
+
                 bufferedReader.close();
+
+
                 return sb.toString().trim();
+
 
             } catch (Exception e) {
 
                 Log.d(TAG, "InsertData: Error ", e);
                 errorString = e.toString();
+
                 return null;
             }
 
@@ -224,14 +237,14 @@ public class Buyer extends AppCompatActivity {
 
 
     private void showResult() {
-        //주소찍기기
+        //주소찍기
         try {
-            JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+            JSONObject jsonObject = new JSONObject(mJsonString1);
+            JSONArray jsonArray1 = jsonObject.getJSONArray(TAG_JSON);
 
-            for(int i=0;i<jsonArray.length();i++){
+            for(int i=0;i<jsonArray1.length();i++){
 
-                JSONObject item = jsonArray.getJSONObject(i);
+                JSONObject item = jsonArray1.getJSONObject(i);
 
                 String f_address = item.getString(TAG_FADDRESS);
 
@@ -254,20 +267,20 @@ public class Buyer extends AppCompatActivity {
 
         //x좌표 찍기
         try {
-            JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+            JSONObject jsonObject = new JSONObject(mJsonString2);
+            JSONArray jsonArray2 = jsonObject.getJSONArray(TAG_JSON);
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for (int i = 0; i < jsonArray2.length(); i++) {
 
-                JSONObject item = jsonArray.getJSONObject(i);
+                JSONObject item = jsonArray2.getJSONObject(i);
 
                 String x = item.getString(TAG_x);
 
-                HashMap<String, String> hashMap = new HashMap<>();
+                HashMap<String, String> hashMap1 = new HashMap<>();
 
-                hashMap.put(TAG_x, x);
+                hashMap1.put(TAG_x, x);
 
-                mArrayList2.add(hashMap);
+                mArrayList2.add(hashMap1);
             }
             ListAdapter adapter = new SimpleAdapter(
                     Buyer.this, mArrayList2, R.layout.list_xy,
@@ -282,12 +295,12 @@ public class Buyer extends AppCompatActivity {
 
         //y좌표 찍기
         try {
-            JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+            JSONObject jsonObject = new JSONObject(mJsonString3);
+            JSONArray jsonArray3 = jsonObject.getJSONArray(TAG_JSON);
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for (int i = 0; i < jsonArray3.length(); i++) {
 
-                JSONObject item = jsonArray.getJSONObject(i);
+                JSONObject item = jsonArray3.getJSONObject(i);
 
                 String y = item.getString(TAG_y);
 

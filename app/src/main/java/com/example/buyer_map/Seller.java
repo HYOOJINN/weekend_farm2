@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +44,9 @@ public class Seller extends AppCompatActivity {
     private EditText mEditTextcontent;
     private TextView mTextViewsqltext;
 
+    private EditText mEditTextpw;
+
+
 
 
     @Override
@@ -55,6 +59,9 @@ public class Seller extends AppCompatActivity {
         mEditTextcropinput = (TextView)findViewById(R.id.cropInput);
         mEditTextcontent = findViewById(R.id.content);
         mTextViewsqltext = findViewById(R.id.sqltext);
+        mEditTextpw=(EditText)findViewById(R.id.pw);
+        PasswordTransformationMethod pass=new PasswordTransformationMethod();
+        mEditTextpw.setTransformationMethod(pass);
 
         mTextViewsqltext.setMovementMethod(new ScrollingMovementMethod());
 
@@ -68,15 +75,17 @@ public class Seller extends AppCompatActivity {
                 String addressInput = mEditTextaddressinput.getText().toString();
                 String cropInput =  mEditTextcropinput.getText().toString();
                 String content = mEditTextcontent.getText().toString();
+                String pw = mEditTextpw.getText().toString();
 
                 InsertData task = new InsertData();
-                task.execute("http://" + "ec2-3-134-104-28.us-east-2.compute.amazonaws.com" + "/insert.php", title, addressInput, cropInput, content);
+                task.execute("http://" + "ec2-3-134-104-28.us-east-2.compute.amazonaws.com" + "/insert.php", title, addressInput, cropInput, content,pw);
 
 
                 mEditTexttitle.setText("");
                 mEditTextaddressinput.setText("");
                 mEditTextcropinput.setText("");
                 mEditTextcontent.setText("");
+                mEditTextpw.setText("");
 
             }
         });
@@ -111,9 +120,11 @@ public class Seller extends AppCompatActivity {
             String addressInput = params[2];
             String cropInput = params[3];
             String content = params[4];
+            String pw=params[5];
 
             String serverURL = params[0];
-            String postParameters = "title=" + title +"&content=" + content+ "&addressInput=" +addressInput+"&cropInput="+cropInput;
+            String postParameters = "title=" + title +"&content=" + content+ "&addressInput=" +addressInput+"&cropInput="+cropInput
+                    + "&pw=" + pw;
 
 
             try {

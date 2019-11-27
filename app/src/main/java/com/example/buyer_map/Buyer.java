@@ -133,6 +133,7 @@ public class Buyer extends AppCompatActivity {
 
                 GetData task = new GetData();
                 task.execute(mEditTextSearchKeyword1.getText().toString());
+
             }
         });
         mArrayList = new ArrayList<>();

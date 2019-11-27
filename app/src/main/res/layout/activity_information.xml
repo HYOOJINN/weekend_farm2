@@ -37,12 +37,19 @@
             android:textSize="18sp" />
 
         <ListView
-            android:id="@+id/textView_title"
+            android:id="@+id/listView_title"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:textColor="#000000"
             android:textSize="18sp" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView_title"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="2"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="18sp" />-->
 
     </LinearLayout>
 
@@ -118,24 +125,32 @@
 
 
     <ListView
-        android:id="@+id/textView_content"
+        android:id="@+id/listView_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2.5"
-        android:textColor="#000000"
         android:textSize="18sp"
         android:layout_margin="20dp"/>
 
+<!--    <TextView-->
+<!--        android:id="@+id/textView_content"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="2.5"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textSize="18sp"-->
+<!--        android:layout_margin="20dp"/>-->
+
     <Button
-        android:id="@+id/btnOkay"
+        android:id="@+id/btnOkay2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#189BA3"
-        android:onClick="btnOkay"
+        android:onClick="btnOkay2"
         android:text="확인" />
 
     <Button
-        android:id="@+id/button_main_search"
+        android:id="@+id/button_main_search2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Button" />

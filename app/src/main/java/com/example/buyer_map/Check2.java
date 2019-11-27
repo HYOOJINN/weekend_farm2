@@ -155,7 +155,7 @@ public class Check2 extends AppCompatActivity {
     String[] arr_addr;
 
     public void nextgogo(View v) {
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), CheckTitle.class);
         intent.putExtra("arr_addr", arr_addr);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
@@ -220,6 +220,7 @@ public class Check2 extends AppCompatActivity {
         //선택한 작물의 주소 list 형식으로 불러오기
         mListViewList4 = (ListView) findViewById(R.id.listView_main_list);
         mEditTextSearchKeyword4 = (TextView) findViewById(R.id.selected_address2);
+        mListViewList4.setVisibility(View.INVISIBLE);
 
         Button button_search = (Button) findViewById(R.id.button_main_search);
         button_search.setOnClickListener(new View.OnClickListener() {
@@ -229,11 +230,17 @@ public class Check2 extends AppCompatActivity {
 
                 GetData task = new GetData();
                 task.execute( mEditTextSearchKeyword4.getText().toString());
+
+/*                Intent intent = new Intent(getApplicationContext(), CheckTitle.class);
+                intent.putExtra("arr_addr", arr_addr);
+                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();*/
             }
         });
         mArrayList4 = new ArrayList<>();
 
     }
+
 
     //작물 리스트에서 선택한 값 textview에 출력
     public void getEditTextObject(){

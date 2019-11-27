@@ -2,15 +2,10 @@ package com.example.buyer_map;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -20,10 +15,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,9 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -212,6 +201,7 @@ public class Information extends AppCompatActivity {
             //주소찍기
             try {
                 JSONObject jsonObject = new JSONObject(mJsonString);
+                Log.v("eeeeee",mJsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -241,6 +231,7 @@ public class Information extends AppCompatActivity {
 
             try {
                 JSONObject jsonObject = new JSONObject (mJsonString1);
+                Log.v("eeeee3333333e",mJsonString1);
                 JSONArray jsonArray1 = jsonObject.getJSONArray(TAG_JSON);
 
                 for (int i = 0; i < jsonArray1.length(); i++) {

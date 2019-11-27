@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">buyer_map</string>
     <string name="title_activity_maps">Map</string>
-    <string name="button_ok">확인</string>
+    <string name="textview_message" formatted="false">%1$20s %2$20s %3$20s %4$20s \n</string>
 </resources>

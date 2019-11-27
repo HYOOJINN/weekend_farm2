@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ManagementActivity"></activity>
+        <activity android:name=".Information2"></activity>
+        <activity android:name=".CheckTitle" />
+        <activity android:name=".ManagementActivity" />
         <activity android:name=".Check" />
         <activity android:name=".Check2" />
         <activity android:name=".Buyer" />

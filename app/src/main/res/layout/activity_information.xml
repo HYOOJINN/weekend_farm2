@@ -22,15 +22,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:orientation="horizontal"
         android:layout_margin="10dp"
         tools:context=".Information">
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="제목: "
             android:textColor="#000000"
@@ -39,30 +39,25 @@
         <ListView
             android:id="@+id/listView_title"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="2"
-            android:textSize="18sp" />
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView_title"-->
-        <!--            android:layout_width="300dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_weight="2"-->
-        <!--            android:textColor="#000000"-->
-        <!--            android:textSize="18sp" />-->
+            android:dividerHeight="35dp"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:orientation="horizontal"
         tools:context=".Information"
         android:layout_margin="10dp">
+
         <TextView
             android:id="@+id/textViewadd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="33dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="주소 : "
             android:textColor="#000000"
@@ -70,23 +65,24 @@
         <TextView
             android:id="@+id/textView_address"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="4"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:gravity="center"/>
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:orientation="horizontal"
         tools:context=".Information"
         android:layout_margin="10dp">
 
         <TextView
             android:id="@+id/textViewcr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="판매 농작물: "
             android:textColor="#000000"
@@ -94,50 +90,36 @@
         <TextView
             android:id="@+id/textView_crop"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="3"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:gravity="center"/>
     </LinearLayout>
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/checkContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context=".Information"
-        android:layout_margin="10dp">
-        <TextView
-            android:id="@+id/textViewty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="  개인 / 소상공인 : "
-            android:textColor="#000000"
-            android:textSize="18sp" />
-        <TextView
-            android:id="@+id/textView_main_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text=""
-            android:textColor="#000000"
-            android:textSize="18sp"/>
-    </LinearLayout>
-
+        android:layout_height="35dp"
+        android:text="상세정보"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:gravity="center"/>
 
     <ListView
         android:id="@+id/listView_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:dividerHeight="200dp"
+        android:textSize="30sp"
         android:layout_weight="2.5" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView_content"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_weight="2.5"-->
-    <!--        android:textColor="#000000"-->
-    <!--        android:textSize="18sp"-->
-    <!--        android:layout_margin="20dp"/>-->
+    <Button
+        android:id="@+id/button_main_search2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="자세한 정보 확인하기" />
+
 
     <Button
         android:id="@+id/btnOkay2"
@@ -145,14 +127,8 @@
         android:layout_height="wrap_content"
         android:background="#189BA3"
         android:onClick="btnOkay2"
-        android:text="확인"
+        android:text="Home"
         tools:ignore="OnClick" />
-
-    <Button
-        android:id="@+id/button_main_search2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 
 
 </LinearLayout>

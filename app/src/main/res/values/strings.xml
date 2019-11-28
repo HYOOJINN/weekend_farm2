@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">buyer_map</string>
     <string name="title_activity_maps">Map</string>
-    <string name="textview_message1" formatted="false">%1$20s \n</string>
-    <string name="textview_message2" formatted="false">%1$20s \n</string>
-    <string name="textview_message3" formatted="false">%1$20s \n</string>
-    <string name="textview_message4" formatted="false">%1$20s \n</string>
+    <string name="textview_message1" formatted="false">%1$s</string>
+    <string name="textview_message2" formatted="false">%1$s</string>
+    <string name="textview_message3" formatted="false">%1$s</string>
+    <string name="textview_message4" formatted="false">%1$s</string>
+    <string name="textview_message5" formatted="false">%1$s</string>
 </resources>

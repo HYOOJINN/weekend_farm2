@@ -20,7 +20,8 @@
         android:id="@+id/textview3"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:text="원하는 농장 주소를 선택하세요" />
+        android:text="원하는 농장 주소를 선택하세요"
+        android:gravity="center"/>
 
     <ListView
         android:id="@+id/mark_address_list"

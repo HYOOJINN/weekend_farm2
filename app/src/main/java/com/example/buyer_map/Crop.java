@@ -14,17 +14,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 
 public class Crop extends AppCompatActivity  {
 
     private ListView mList;
     private Button mBtnGet;
-    String[] data = new String[]{ "고구마", "감자", "깻잎", "상추", "무", "고추", "호박", "가지", "대파", "양파", "당근", "쑥갓",
-            "열무", "방울토마토", "부추", "옥수수", "치커리", "가지", "미나리"};
-
+    String[] data = new String[]{ "가지","감자","고구마","고추",  "깻잎","당근","대파", "무","미나리",
+            "방울토마토","부추","상추", "쑥갓","양파","열무","옥수수", "치커리",  "호박" };
 
     private TextView selected_crop;
 

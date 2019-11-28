@@ -1,19 +1,17 @@
 package com.example.buyer_map;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -31,7 +29,7 @@ public class Information2 extends AppCompatActivity {
     TextView textinfo3;
     TextView textinfo4;
     TextView textinfo5;
-
+    EditText inputpw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +68,10 @@ public class Information2 extends AppCompatActivity {
 
         textinfo5 = (TextView) findViewById(R.id.textinfo5);
         textinfo5.setText(selected_item6);
+
+        inputpw = (EditText) findViewById(R.id.inputpw);
+        PasswordTransformationMethod pass=new PasswordTransformationMethod();
+        inputpw.setTransformationMethod(pass);
 
         this.SetListener();
     }
@@ -210,7 +212,6 @@ public class Information2 extends AppCompatActivity {
 
 
 }
-
 
 
 

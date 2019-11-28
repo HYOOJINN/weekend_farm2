@@ -110,9 +110,17 @@
         android:id="@+id/listView_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="2.5"
         android:dividerHeight="200dp"
-        android:textSize="30sp"
-        android:layout_weight="2.5" />
+        android:textSize="30sp" />
+
+    <ListView
+        android:id="@+id/listView_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:dividerHeight="200dp"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/button_main_search2"

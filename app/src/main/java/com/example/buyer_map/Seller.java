@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +43,7 @@ public class Seller extends AppCompatActivity {
     private TextView mEditTextaddressinput; //intent
     private TextView mEditTextcropinput;
     private EditText mEditTextcontent;
-    private TextView mTextViewsqltext;
+//    private TextView mTextViewsqltext;
 
     private EditText mEditTextpw;
 
@@ -59,12 +58,12 @@ public class Seller extends AppCompatActivity {
         mEditTextaddressinput = (TextView)findViewById(R.id.addressInput);
         mEditTextcropinput = (TextView)findViewById(R.id.cropInput);
         mEditTextcontent = findViewById(R.id.content);
-        mTextViewsqltext = findViewById(R.id.sqltext);
+//        mTextViewsqltext = findViewById(R.id.sqltext);
         mEditTextpw=(EditText)findViewById(R.id.pw);
         PasswordTransformationMethod pass=new PasswordTransformationMethod();
         mEditTextpw.setTransformationMethod(pass);
 
-        mTextViewsqltext.setMovementMethod(new ScrollingMovementMethod());
+//        mTextViewsqltext.setMovementMethod(new ScrollingMovementMethod());
 
 
         Button buttonInsert = findViewById(R.id.btnComplete);
@@ -164,7 +163,7 @@ public class Seller extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            mTextViewsqltext.setText(result);
+//            mTextViewsqltext.setText(result);
             Log.d(TAG, "POST response  - " + result);
         }
 
@@ -222,12 +221,9 @@ public class Seller extends AppCompatActivity {
                     sb.append(line);
                 }
 
-
                 bufferedReader.close();
 
-
                 return sb.toString();
-
 
             } catch (Exception e) {
 

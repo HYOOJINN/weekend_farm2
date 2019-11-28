@@ -145,7 +145,7 @@
             android:layout_width="198dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:hint=" 비밀번호 4자리를 입력하세요"
+            android:hint=" 비밀번호를 입력하세요"
             android:inputType="text"
             android:textSize="18sp" />
 
@@ -157,7 +157,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="2.5"
         android:background="#FFFAE7"
-        android:hint=" 가격, 시간, 전화번호 등 판매에 필요한 정보를 입력해주세요"
+        android:gravity="top"
+        android:hint=" 가격, 판매 가능 시간, 연락처 등 판매에 필요한 게시글 내용을 작성해주세요"
         android:inputType="textMultiLine"
         android:textSize="18sp"
         android:layout_margin="20dp"/>

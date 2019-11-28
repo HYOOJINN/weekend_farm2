@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -37,6 +39,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
@@ -99,6 +102,10 @@ public class MainActivity extends AppCompatActivity
     //ListView address_listview;
     String selected_item;
     String receive_address;
+
+//마커 한눈에 보기
+    private LatLngBounds.Builder builder;
+    private LatLngBounds bounds;
 
 
 
@@ -234,13 +241,35 @@ public class MainActivity extends AppCompatActivity
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
         }
 
-        MarkerOptions farm_marker= new  MarkerOptions();
+        LatLng farm[];
+        MarkerOptions farm_marker = new  MarkerOptions();
         for(int i = 0; i<double_arrX.length; i++){
 
             farm_marker.position(new LatLng(double_arrX[i], double_arrY[i]));
             farm_marker.title(arraylist_farmName[i]);
+            BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.marker1);
+            Bitmap b=bitmapdraw.getBitmap();
+            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+            farm_marker.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             mMap.addMarker(farm_marker);
+
+
+
+//            builder.include(farm_marker.getPosition());
+
         }
+
+
+//        builder = new LatLngBounds.Builder();
+//        for (int i = 0; i < double_arrX.length; i++) {
+//            farm(new LatLng(double_arrX[i],double_arrY[i]));
+//        }
+//        bounds = builder.build();
+//        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 0);
+//        mMap.animateCamera(cu);
+
+
 
 
         //        LatLng farm2 = new LatLng(37.469437, 126.908536);
@@ -311,6 +340,9 @@ public class MainActivity extends AppCompatActivity
                 Log.d( TAG, "onMapClick :");
             }
         });
+
+
+
     }
 
     LocationCallback locationCallback = new LocationCallback() {
@@ -443,7 +475,6 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-
         if (addresses == null || addresses.size() == 0) {
 //            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
             return "주소 미발견";
@@ -476,8 +507,7 @@ public class MainActivity extends AppCompatActivity
         markerOptions.position(currentLatLng);
         markerOptions.title(markerTitle);
         markerOptions.snippet(markerSnippet);
-        markerOptions.draggable(true);
-
+        markerOptions.draggable(false);
 
 //        currentMarker = mMap.addMarker(markerOptions);
 
@@ -486,30 +516,24 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-    public void setDefaultLocation() {
-
-
-        //디폴트 위치, Seoul
-        LatLng DEFAULT_LOCATION = new LatLng(37.56, 126.97);
-        String markerTitle = "위치정보 가져올 수 없음";
-        String markerSnippet = "위치 퍼미션과 GPS 활성 요부 확인하세요";
-
-
-        if (currentMarker != null) currentMarker.remove();
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(DEFAULT_LOCATION);
-        markerOptions.title(markerTitle);
-        markerOptions.snippet(markerSnippet);
-        markerOptions.draggable(true);
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-        currentMarker = mMap.addMarker(markerOptions);
-
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 3);
-        mMap.moveCamera(cameraUpdate);
-
-    }
+//    public void setDefaultLocation() {
+//        //디폴트 위치, Seoul
+//        LatLng DEFAULT_LOCATION = new LatLng(37.56, 126.97);
+//        String markerTitle = "위치정보 가져올 수 없음";
+//        String markerSnippet = "위치 퍼미션과 GPS 활성 요부 확인하세요";
+//        if (currentMarker != null) currentMarker.remove();
+//
+//        MarkerOptions markerOptions = new MarkerOptions();
+//        markerOptions.position(DEFAULT_LOCATION);
+//        markerOptions.title(markerTitle);
+//        markerOptions.snippet(markerSnippet);
+//        markerOptions.draggable(true);
+//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+//        currentMarker = mMap.addMarker(markerOptions);
+//
+//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 3);
+//        mMap.moveCamera(cameraUpdate);
+//    }
 
 
     //여기부터는 런타임 퍼미션 처리을 위한 메소드들

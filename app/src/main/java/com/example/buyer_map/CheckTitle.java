@@ -37,28 +37,42 @@ public class CheckTitle extends AppCompatActivity {
     private static final String TAG_CONTENT = "content";
 
     String mJsonString;
+    String mJsonString2;
+    String mJsonString3;
+    String mJsonString4;
+//    String mJsonString4;pw
+
     ListView sListViewList;                         //위에 값을 담을 리스트뷰
 
-//    String[] s_list;  //결과나온 sArraylist를 string 배열로 풀어주려고
 
     String[] arraylist_addr;    //이전 화면에서 받아온 게시글제목 배열
 
     private TextView selected_sname;    //제목을 선택하면 그대로 보여줄 텍스트뷰
+    private TextView selected_sname2;
+    private TextView selected_sname3;
+    private TextView selected_sname4;
+//    private TextView selected_sname5; pw
 
     ArrayList<HashMap<String, String>> sArrayList;  //db결과값 담을 arraylist
-
+    ArrayList<HashMap<String, String>> sArrayList2;
+    ArrayList<HashMap<String, String>> sArrayList3;
+    ArrayList<HashMap<String, String>> sArrayList4;
+//    ArrayList<HashMap<String, String>> sArrayList5;pw
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_title);
 
-        // final TextView textview79 = (TextView) findViewById(R.id.textview79);
-
-
         //db 실행후에 select 값이 보여질 listview
         sListViewList = (ListView) findViewById(R.id.listView_main_list);
+
+        //선택된 제목 나타날 textview
         selected_sname = (TextView) findViewById(R.id.selected_sname);
+        selected_sname2 = (TextView) findViewById(R.id.selected_sname2);
+        selected_sname3 = (TextView) findViewById(R.id.selected_sname3);
+        selected_sname4 = (TextView) findViewById(R.id.selected_sname4);
+        //selected_sname5 = (TextView) findViewById(R.id.selected_sname5);pw
 
         //check2에서 주소를 통해 받아온 글제목 listview에 출력하기(아래 listview)
         ListView sname_listview = (ListView) findViewById(R.id.sname_listview);
@@ -86,56 +100,35 @@ public class CheckTitle extends AppCompatActivity {
 
                 //클릭한 아이템의 문자열을 가져옴
                 String selected_item2 = (String) adapterView.getItemAtPosition(position);
+                String selected_item3 = (String) adapterView.getItemAtPosition(position);
+                String selected_item4 = (String) adapterView.getItemAtPosition(position);
+                String selected_item5 = (String) adapterView.getItemAtPosition(position);
+                //pw       String selected_item6 = (String) adapterView.getItemAtPosition(position);
+
 
                 //클릭한 게시물 제목을 텍스트뷰에 출력
                 selected_sname.setText("");
 
-                //다음 화면에 텍스트뷰 그대로 넘기기
-//                Intent intent3 = new Intent(getApplicationContext(), Information2.class);
-//                intent3.putExtra("addressFromMain", position);
-//                intent3.putExtra("s_name", selected_item2);
-//                intent3.putExtra("name",selected_sname.getText().toString());
-//                startActivity(intent3);
-
-
-
                 //리스트뷰 클릭하면 벌어지는 일
                 sArrayList.clear();
+                sArrayList2.clear();
 
                 GetData task = new GetData();
 //                    task.execute( selected_sname.getText().toString());
                 task.execute(selected_item2);
-
-
-
-
-
+                //         task.execute(selected_item3);
 
             }
         });
 
         sArrayList = new ArrayList<>();
+        sArrayList2 = new ArrayList<>();
+        sArrayList3 = new ArrayList<>();
+        sArrayList4 = new ArrayList<>();
+        //pw       sArrayList5 = new ArrayList<>();
 
-/*        //db 실행후에 select 값이 보여질 listview
-        sListViewList = (ListView) findViewById(R.id.listView_main_list);
-        selected_sname = (TextView) findViewById(R.id.ccc);
-
-        Button button_search = (Button) findViewById(R.id.button_main_search);
-        button_search.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                sArrayList.clear();
-
-                GetData task = new GetData();
-                task.execute( selected_sname.getText().toString());
-            }
-        });
-        sArrayList = new ArrayList<>();*/
-
+        sArrayList2.clear();
     }
-
-
-
 
 
     private class GetData extends AsyncTask<String, Void, String>{
@@ -144,13 +137,14 @@ public class CheckTitle extends AppCompatActivity {
         String errorString = null;
 
 
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
             progressDialog = ProgressDialog.show(CheckTitle.this,
                     "Please Wait", null, true, true);
+
+            sArrayList2.clear();
         }
 
 
@@ -158,18 +152,34 @@ public class CheckTitle extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
+            sArrayList2.clear();
             progressDialog.dismiss();
             Log.d(TAG, "response - " + result);
 
             mJsonString = result;
+            mJsonString2 = result;
+            mJsonString3 = result;
+            mJsonString4 = result;
+//            mJsonString5 = result;
+
             showResult();
             selected_sname = (TextView) findViewById(R.id.selected_sname);
-            //  TextView textview79 = (TextView) findViewById(R.id.textview79);
+            selected_sname2 = (TextView) findViewById(R.id.selected_sname2);
+            selected_sname3 = (TextView) findViewById(R.id.selected_sname2);
+            selected_sname4 = (TextView) findViewById(R.id.selected_sname2);
+//            selected_sname5 = (TextView) findViewById(R.id.selected_sname2);
+
+
             Intent intent3 = new Intent(getApplicationContext(), Information2.class);
-//            intent3.putExtra("addressFromMain", position);
             intent3.putExtra("s_name", selected_sname.getText().toString());
             intent3.putExtra("name",selected_sname.getText().toString());
+            intent3.putExtra("s_name2",selected_sname2.getText().toString());
+            intent3.putExtra("s_name3",selected_sname3.getText().toString());
+            intent3.putExtra("s_name4",selected_sname4.getText().toString());
+            //pw  intent3.putExtra("s_name5",selected_sname5.getText().toString());
             startActivity(intent3);
+
+
         }
 
 
@@ -244,10 +254,10 @@ public class CheckTitle extends AppCompatActivity {
 
 
         private void showResult(){
-
+            sArrayList2.clear();
             selected_sname = (TextView) findViewById(R.id.selected_sname);
-            //  TextView textview79 = (TextView) findViewById(R.id.textview79);
-
+            selected_sname2 = (TextView) findViewById(R.id.selected_sname2);
+////////1
             try {
                 JSONObject jsonObject = new JSONObject(mJsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
@@ -256,16 +266,11 @@ public class CheckTitle extends AppCompatActivity {
 
                     JSONObject item = jsonArray.getJSONObject(i);
                     String s_name = item.getString(TAG_SNAME);
-                    String c_name = item.getString(TAG_CNAME);
-                    String f_address = item.getString(TAG_FADDRESS);
-                    String content = item.getString(TAG_CONTENT);
+
 
                     HashMap<String,String> hashMap = new HashMap<>();
 
                     hashMap.put(TAG_SNAME, s_name);
-                    hashMap.put(TAG_CNAME, c_name);
-                    hashMap.put(TAG_FADDRESS, f_address);
-                    hashMap.put(TAG_CONTENT, content);
 
                     sArrayList.add(hashMap);
                 }
@@ -274,46 +279,145 @@ public class CheckTitle extends AppCompatActivity {
 
                     HashMap<String, String> outputHashMap = sArrayList.get(i);
                     String s_name = outputHashMap.get("s_name");
-                    String c_name = outputHashMap.get("c_name");
-                    String f_address = outputHashMap.get("f_address");
-                    String content = outputHashMap.get("content");
 
                     String str = String.format(getResources()
 
-                            .getString(R.string.textview_message), s_name, c_name, f_address, content);
+                            .getString(R.string.textview_message1), s_name);
                     selected_sname.append(str);
                 }
-
-
-
-/*            ListAdapter adapter = new SimpleAdapter(
-                    CheckTitle.this, sArrayList, R.layout.item_list,
-                    new String[]{TAG_CONTENT,
-                            TAG_CNAME,TAG_SNAME,TAG_FADDRESS},
-                    new int[]{R.id.textView_list_sname, R.id.textView_list_cname
-                            , R.id.textView_list_faddress, R.id.textView_list_content}
-            );
-
-            sListViewList.setAdapter(adapter);*/
 
             } catch (JSONException e) {
 
                 Log.d(TAG, "showResult : ", e);
             }
 
+////////2
+            try {
+                JSONObject jsonObject = new JSONObject(mJsonString2);
+                JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
-/*        String sum2 = "";
-        for (HashMap<String, String> hash : sArrayList) {
-            for (String current : hash.values()) {
-                sum2 = sum2 + current + "<#>";
+                for(int i=0;i<jsonArray.length();i++){
+
+                    JSONObject item = jsonArray.getJSONObject(i);
+                    String c_name = item.getString(TAG_CNAME);
+//                    String f_address = item.getString(TAG_FADDRESS);
+//                    String content = item.getString(TAG_CONTENT);
+
+                    HashMap<String,String> hashMap = new HashMap<>();
+
+                    hashMap.put(TAG_CNAME, c_name);
+//                    hashMap.put(TAG_FADDRESS, f_address);
+//                    hashMap.put(TAG_CONTENT, content);
+
+                    sArrayList2.add(hashMap);
+                }
+
+                for(int i=0;i<jsonArray.length();i++){
+
+                    HashMap<String, String> outputHashMap = sArrayList2.get(i);
+                    String c_name = outputHashMap.get("c_name");
+//                    String f_address = outputHashMap.get("f_address");
+//                    String content = outputHashMap.get("content");
+
+                    String str2 = String.format(getResources()
+
+                            .getString(R.string.textview_message2), c_name);
+                    selected_sname2.append(str2);
+
+                    sArrayList2.clear();
+
+                }
+
+            } catch (JSONException e) {
+
+                Log.d(TAG, "showResult : ", e);
             }
-        }
-        s_list = sum2.split("<#>");
 
-        for (int k = 0; k < s_list.length; k++) {
+            sArrayList2.clear();
+////////3
+            try {
+                JSONObject jsonObject = new JSONObject(mJsonString3);
+                JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
-            Log.d("@@@@@@@@sname@@@@@@", s_list[k]);
-        }*/
+                for(int i=0;i<jsonArray.length();i++){
+
+                    JSONObject item = jsonArray.getJSONObject(i);
+
+                    String f_address = item.getString(TAG_FADDRESS);
+//                    String content = item.getString(TAG_CONTENT);
+
+                    HashMap<String,String> hashMap = new HashMap<>();
+
+
+                    hashMap.put(TAG_FADDRESS, f_address);
+//                    hashMap.put(TAG_CONTENT, content);
+
+                    sArrayList3.add(hashMap);
+                }
+
+                for(int i=0;i<jsonArray.length();i++){
+
+                    HashMap<String, String> outputHashMap = sArrayList3.get(i);
+
+                    String f_address = outputHashMap.get("f_address");
+//                    String content = outputHashMap.get("content");
+
+                    String str2 = String.format(getResources()
+
+                            .getString(R.string.textview_message3), f_address);
+                    selected_sname3.append(str2);
+
+                    sArrayList3.clear();
+
+                }
+
+            } catch (JSONException e) {
+
+                Log.d(TAG, "showResult : ", e);
+            }
+
+////////4
+            try {
+                JSONObject jsonObject = new JSONObject(mJsonString4);
+                JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+
+                for(int i=0;i<jsonArray.length();i++){
+
+                    JSONObject item = jsonArray.getJSONObject(i);
+
+
+                    String content = item.getString(TAG_CONTENT);
+
+                    HashMap<String,String> hashMap = new HashMap<>();
+
+
+
+                    hashMap.put(TAG_CONTENT, content);
+
+                    sArrayList4.add(hashMap);
+                }
+
+                for(int i=0;i<jsonArray.length();i++){
+
+                    HashMap<String, String> outputHashMap = sArrayList4.get(i);
+
+
+                    String content = outputHashMap.get("content");
+
+                    String str2 = String.format(getResources()
+
+                            .getString(R.string.textview_message4), content);
+                    selected_sname4.append(str2);
+
+                    sArrayList4.clear();
+
+                }
+
+            } catch (JSONException e) {
+
+                Log.d(TAG, "showResult : ", e);
+            }
+
 
 
 
@@ -324,17 +428,3 @@ public class CheckTitle extends AppCompatActivity {
 
 
 }
-
-
-
-
-
-
-
-
-//        // string[] 다시 arraylist로 변환
-//        final ArrayList<String> selectarr = new ArrayList<String>();
-//        Collections.addAll(selectarr,arraylist_addr);
-//
-//
-//        selectarr.add(TAG_SNAME);

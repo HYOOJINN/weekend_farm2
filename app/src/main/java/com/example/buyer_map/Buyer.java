@@ -69,6 +69,7 @@ public class Buyer extends AppCompatActivity {
 
 
     public void nextgo(View v) {
+
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("arr_x", arr_X);
         intent.putExtra("arr_y", arr_Y);
@@ -76,7 +77,6 @@ public class Buyer extends AppCompatActivity {
         intent.putExtra("cropFromBuyer",selected_item2);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
-
 
     }
 
@@ -246,6 +246,7 @@ public class Buyer extends AppCompatActivity {
         //주소찍기
         try {
             JSONObject jsonObject = new JSONObject(mJsonString1);
+            Log.v("rrrrrrrrrrrrrrrrr", mJsonString1);
             JSONArray jsonArray1 = jsonObject.getJSONArray(TAG_JSON);
 
             for(int i=0;i<jsonArray1.length();i++){

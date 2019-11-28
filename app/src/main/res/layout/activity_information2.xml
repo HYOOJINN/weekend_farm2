@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Information"
+    tools:context=".Information2"
     >
 
     <TextView
-        android:id="@+id/toptextView2"
+        android:id="@+id/toptextView"
         android:layout_width="wrap_content"
         android:layout_height="39dp"
         android:layout_gravity="center"
-        android:layout_margin="70dp"
         android:layout_marginTop="70dp"
         android:text="판매 정보"
         android:textColor="#000000"
@@ -21,23 +20,94 @@
         android:textStyle="bold"
         android:typeface="monospace" />
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/listView_info"/>
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        tools:context=".Information2">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="제목: "
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textinfo"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="#FFFAE7"
+            android:inputType="text"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        tools:context=".Information">
 
     <TextView
-        android:id="@+id/textinfo"
-        android:layout_width="match_parent"
+        android:id="@+id/crop"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="2.5"
-        android:text=""
+        android:layout_weight="1"
+        android:text="작물: "
+        android:textColor="#000000"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textinfo2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:background="#FFFAE7"
         android:inputType="text"
-        android:textSize="10sp"
-        android:layout_margin="20dp"/>
+        android:textSize="18sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        tools:context=".Information">
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="주소: "
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textinfo3"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="#FFFAE7"
+            android:inputType="text"
+            android:textSize="18sp" />
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/textinfonew"
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 상세 내용 "
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textinfo4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2.5"
@@ -53,7 +123,7 @@
         android:layout_height="wrap_content"
         android:background="#189BA3"
         android:onClick="btnOkay"
-        android:text="판매 정보 삭제" />
+        android:text="판매 정보 삭제" ></Button>
 
 
 

@@ -1,6 +1,7 @@
 package com.example.buyer_map;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
@@ -207,6 +209,27 @@ public class Seller extends AppCompatActivity {
         Intent intent=new Intent(getApplicationContext(),Information.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(),"입력완료",Toast.LENGTH_LONG).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setMessage("입력한 정보를 저장하시겠습니까?");
+
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id){
+
+                Intent intent_h = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent_h);
+            }
+        });
+
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+            }
+        });
+
+        builder.show();
 
     }
 

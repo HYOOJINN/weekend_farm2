@@ -20,12 +20,41 @@
         android:textStyle="bold"
         android:typeface="monospace" />
 
+
     <TextView
         android:id="@+id/selected_sname"
         android:layout_width="match_parent"
-        android:layout_height="108dp"
-        android:textSize="10sp"
-        android:text="" />
+        android:layout_height="20sp"
+        android:text=""
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/selected_sname2"
+        android:layout_width="match_parent"
+        android:layout_height="20sp"
+        android:text=""
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/selected_sname3"
+        android:layout_width="match_parent"
+        android:layout_height="20sp"
+        android:text=""
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/selected_sname4"
+        android:layout_width="match_parent"
+        android:layout_height="20sp"
+        android:text=""
+        android:textSize="10sp" />
+
+    <!--    <TextView  비밀번호 받아오면 그거 칸으로 쓰기
+            android:id="@+id/selected_sname5"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text=""
+            android:textSize="10sp" />-->
 
     <ListView
         android:id="@+id/sname_listview"

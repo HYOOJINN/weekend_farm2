@@ -24,7 +24,7 @@ public class Splash extends AppCompatActivity {
                 .withFooterText("Welcome!")
                 .withBeforeLogoText("")
                 .withAfterLogoText("WEEKEND FARM")
-                .withLogo(R.drawable.farmer2);
+                .withLogo(R.drawable.home);
 
        // config.getHeaderTextView().setTextColor(Color.WHITE);
         config.getFooterTextView().setTextColor(Color.rgb(24, 155, 163 ));

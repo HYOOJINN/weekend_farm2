@@ -1,56 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F9F7E8"
-    tools:context=".HomeActivity">
+    android:layout_height="wrap_content"
+    android:adjustViewBounds="true"
+    android:orientation="vertical"
+    tools:context=".home">
 
 
     <ImageView
-        android:layout_width="240dp"
-        android:layout_height="228dp"
-        android:background="@drawable/home"
-        android:layout_marginStart="70dp"
-        android:layout_marginBottom="400dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="150dp"></ImageView>
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/home">
+    </ImageView>
 
-    <ImageButton
-        android:id="@+id/button"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginBottom="120dp"
-        android:background="@drawable/seller_button"
-        android:onClick="ClickButton1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></ImageButton>
+    <LinearLayout
+        android:layout_width="238dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/button2"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="120dp"
-        android:background="@drawable/buyer_button"
-        android:onClick="ClickButton2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" ></ImageButton>
+
+        <ImageButton
+            android:id="@+id/button"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/seller_button"
+            android:onClick="ClickButton1"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/button2"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buyer_button"
+            android:onClick="ClickButton2"></ImageButton>
+
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/button4"
-        android:layout_width="275dp"
-        android:layout_height="50dp"
-        android:onClick="ClickButton3"
+        android:layout_width="250dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center"
         android:background="@drawable/request_button"
-        android:layout_marginBottom="55dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginEnd="68dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" ></ImageButton>
+        android:onClick="ClickButton3">
+
+    </ImageButton>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

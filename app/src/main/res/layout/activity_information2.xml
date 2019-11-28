@@ -125,7 +125,8 @@
         android:background="#FFFAE7"
         android:inputType="text"
         android:textSize="18sp"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        android:textColor="#00ff0000"/>
 
 
 

@@ -6,32 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     >
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/home">
+    </ImageView>
 
     <ImageButton
         android:id="@+id/putinfo"
         android:layout_width="275dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginTop="500dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/seller_button"
-        android:onClick="putinfo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"></ImageButton>
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button_seller_insert_info"
+        android:onClick="putinfo"></ImageButton>
 
     <ImageButton
         android:id="@+id/getinfo"
         android:layout_width="275dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="55dp"
-        android:background="@drawable/confirm"
-        android:onClick="getinfo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"></ImageButton>
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:background="@drawable/checktitle_button"
+        android:onClick="getinfo"></ImageButton>
 
 </LinearLayout>

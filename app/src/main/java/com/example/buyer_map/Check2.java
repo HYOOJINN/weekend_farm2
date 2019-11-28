@@ -158,7 +158,6 @@ public class Check2 extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), CheckTitle.class);
         intent.putExtra("arr_addr", arr_addr);
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
     }
 
 

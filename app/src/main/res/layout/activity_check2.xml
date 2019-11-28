@@ -60,22 +60,22 @@
     </LinearLayout>
 
     <ListView
+        android:id="@+id/listView_main_list"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/listView_main_list"/>
+        android:layout_height="20dp" />
 
     <TextView
         android:id="@+id/textvieww"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:text="주소" />
+        android:text="주소검색하고 search누르고, next" />
 
     <ListView
         android:id="@+id/addr_list"
-        android:layout_below="@id/editsearch"
-        android:textFilterEnabled="true"
         android:layout_width="match_parent"
-        android:layout_height="421dp"
-        android:cacheColorHint="#8C8BC34A"></ListView>
+        android:layout_height="604dp"
+        android:layout_below="@id/editsearch"
+        android:cacheColorHint="#8C8BC34A"
+        android:textFilterEnabled="true"></ListView>
 
 </LinearLayout>

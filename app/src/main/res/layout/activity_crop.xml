@@ -3,16 +3,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#F9F7E8"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="61dp"
-        android:background="#189BA3"
         android:gravity="center"
-        android:text="원하는 농작물을 고르세요.(다중선택가능)"
-        android:textColor="#FFF9F7E8"
+        android:text="판매를 원하는 농작물을 고르세요."
         android:textSize="20sp" />
 
     <LinearLayout
@@ -22,29 +19,27 @@
 
         <TextView
             android:id="@+id/textView1"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="8dp"
+            android:layout_width="47dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:text="선택항목:"
             android:textSize="26sp" />
 
         <TextView
             android:id="@+id/selected_crop"
-            android:layout_width="170dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:textSize="26sp" />
 
         <ImageButton
             android:id="@+id/btnGet2"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
+            android:layout_width="46dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/confirm"
             android:onClick="ClickButton"></ImageButton>
-
-
     </LinearLayout>
-
 
     <ListView
         android:id="@+id/listView"

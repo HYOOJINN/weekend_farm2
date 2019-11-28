@@ -76,7 +76,6 @@ public class Buyer extends AppCompatActivity {
         intent.putExtra("arr_address", arr_address);
         intent.putExtra("cropFromBuyer",selected_item2);
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), "다음화면 갑니다", Toast.LENGTH_LONG).show();
 
     }
 

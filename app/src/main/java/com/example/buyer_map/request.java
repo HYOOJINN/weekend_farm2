@@ -1,5 +1,6 @@
 package com.example.buyer_map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -15,6 +16,8 @@ public class request extends AppCompatActivity {
     }
     public void ClickButton1(View v){
 
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
         Toast.makeText(getApplicationContext(),"요청을 완료했습니다.",Toast.LENGTH_LONG).show();
     }
 

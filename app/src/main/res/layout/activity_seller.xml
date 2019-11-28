@@ -170,7 +170,7 @@
         android:layout_gravity="right"
         android:layout_marginRight="20dp"
         android:background="#189BA3"
-        android:onClick="btnComplete"
+        android:onClick="onSellerClick"
         android:text="입력 완료"
         android:textSize="18sp" />
 

@@ -88,6 +88,21 @@ public class Seller extends AppCompatActivity {
                 mEditTextcontent.setText("");
                 mEditTextpw.setText("");
 
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setMessage("입력한 정보를 저장하시겠습니까?");
+
+                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int id){
+
+                            Intent intent_h = new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(intent_h);
+                            Toast.makeText(getApplicationContext(),"입력완료",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    builder.show();
+
             }
         });
 
@@ -204,35 +219,11 @@ public class Seller extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(),"Hot 작물 확인 버튼을 눌렀습니다",Toast.LENGTH_LONG).show();
 //    }
 
-    public void btnComplete(View v){
-        Intent intent=new Intent(getApplicationContext(),Information.class);
-        startActivity(intent);
-        Toast.makeText(getApplicationContext(),"입력완료",Toast.LENGTH_LONG).show();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-        builder.setMessage("입력한 정보를 저장하시겠습니까?");
-
-        builder.setPositiveButton("확인", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int id){
-
-                Intent intent_h = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent_h);
-            }
-        });
-
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int id)
-            {
-            }
-        });
-
-        builder.show();
-
-    }
 
     @Override
+
+
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
 
         super.onActivityResult(requestCode, resultCode, resultIntent);

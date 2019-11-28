@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity
 
     String[] arraylist_x;
     String[] arraylist_y;
+    String[] arraylist_farmName;
 
 
     //buyer에서 받아온 주소 listview에 출력하기
@@ -202,7 +203,7 @@ public class MainActivity extends AppCompatActivity
 
         mMap = googleMap;
 
-////////주소 받아와서 마커찍기 /////////////////
+////////////////////////////////주소 받아와서 마커찍기 //////////////////////////////////
         Intent intent = getIntent();
         arraylist_x = intent.getExtras().getStringArray("arr_x");
         for(int j = 0; j<  arraylist_x.length; j++){
@@ -213,6 +214,13 @@ public class MainActivity extends AppCompatActivity
         for(int k = 0; k<  arraylist_y.length; k++){
             Log.d("###", arraylist_y[k]);
         }
+
+        arraylist_farmName = intent.getExtras().getStringArray("arr_farmName");
+        for(int k = 0; k<  arraylist_farmName.length; k++){
+            Log.d("###", arraylist_farmName[k]);
+        }
+
+
 
         double[] double_arrX = new double[arraylist_x.length];
 
@@ -226,16 +234,25 @@ public class MainActivity extends AppCompatActivity
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
         }
 
+        MarkerOptions farm_marker= new  MarkerOptions();
         for(int i = 0; i<double_arrX.length; i++){
-            MarkerOptions farm = new  MarkerOptions();
-            farm.position(new LatLng(double_arrX[i], double_arrY[i]));
 
-            mMap.addMarker(farm);
+            farm_marker.position(new LatLng(double_arrX[i], double_arrY[i]));
+            farm_marker.title(arraylist_farmName[i]);
+            mMap.addMarker(farm_marker);
         }
+
+
+        //        LatLng farm2 = new LatLng(37.469437, 126.908536);
+//        markerOptions.position(farm2);
+//
+//        mMap.addMarker(markerOptions);
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(farm2));
+//        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동
-        setDefaultLocation();
+//        setDefaultLocation();
 
 
         //런타임 퍼미션 처리
@@ -489,7 +506,7 @@ public class MainActivity extends AppCompatActivity
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         currentMarker = mMap.addMarker(markerOptions);
 
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 3);
         mMap.moveCamera(cameraUpdate);
 
     }

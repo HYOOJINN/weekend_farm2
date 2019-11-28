@@ -79,17 +79,46 @@ public class Seller extends AppCompatActivity {
                 String pw = mEditTextpw.getText().toString();
 
                 InsertData task = new InsertData();
+
                 task.execute("http://" + "ec2-3-134-104-28.us-east-2.compute.amazonaws.com" + "/insert.php", title, addressInput, cropInput, content,pw);
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                if (title.length() == 0 ){ //mEditTexttitle==null
 
-                mEditTexttitle.setText("");
-                mEditTextaddressinput.setText("");
-                mEditTextcropinput.setText("");
-                mEditTextcontent.setText("");
-                mEditTextpw.setText("");
+                    builder.setMessage("제목을 입력하세요");
+                    builder.setPositiveButton("확인",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {} });
 
+                }else if(addressInput.length() == 0 ){
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setMessage("주소을 입력하세요");
+                    builder.setPositiveButton("확인",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {} });
+
+                }else if( cropInput.length() == 0 ){
+
+                    builder.setMessage("농작물을 입력하세요");
+                    builder.setPositiveButton("확인",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {} });
+
+                }else if( content.length() == 0 ){
+
+                    builder.setMessage("내용을 입력하세요");
+                    builder.setPositiveButton("확인",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {} });
+
+                }else if( pw.length() == 0 ){
+
+                    builder.setMessage("비밀번호를 입력하세요");builder.setPositiveButton("확인",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {} });
+
+                }else{
+
                     builder.setMessage("입력한 정보를 저장하시겠습니까?");
 
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener(){
@@ -101,10 +130,20 @@ public class Seller extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"입력완료",Toast.LENGTH_LONG).show();
                         }
                     });
-                    builder.show();
+                }
+
+                builder.show();
+
+
 
             }
         });
+
+        mEditTexttitle.setText("");
+        mEditTextaddressinput.setText("");
+        mEditTextcropinput.setText("");
+        mEditTextcontent.setText("");
+        mEditTextpw.setText("");
 
     }
 

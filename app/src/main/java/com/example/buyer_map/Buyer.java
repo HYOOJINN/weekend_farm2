@@ -13,7 +13,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.buyer_map.R.id.listView_main_FarmName;
 import static com.example.buyer_map.R.id.listView_main_listY;
 
 
@@ -48,22 +48,27 @@ public class Buyer extends AppCompatActivity {
     private static final String TAG_x = "x";
     private static final String TAG_y = "y";
     private static final String TAG_FADDRESS ="f_address";
+    private static final String TAG_FNAME ="f_name";
 
     ArrayList<HashMap<String, String>> mArrayList;
     ArrayList<HashMap<String, String>> mArrayList2;
     ArrayList<HashMap<String, String>> mArrayList3;
-    ListView mListViewList;
-    ListView mListViewList2;
-    ListView mListViewList3;
+    ArrayList<HashMap<String, String>> mArrayList4;
+    ListView mListViewList; //address
+    ListView mListViewList2; // X
+    ListView mListViewList3; // Y
+    ListView mListViewList4; //listView_main_FarmName
     TextView mEditTextSearchKeyword1;
     String mJsonString1;
     String mJsonString2;
     String mJsonString3;
+    String mJsonString4;
 
     ///////
     String[] arr_X;
     String[] arr_Y;
     String[] arr_address;
+    String[] arr_farmName;
     String selected_item2 ;
 
 
@@ -74,6 +79,7 @@ public class Buyer extends AppCompatActivity {
         intent.putExtra("arr_x", arr_X);
         intent.putExtra("arr_y", arr_Y);
         intent.putExtra("arr_address", arr_address);
+        intent.putExtra("arr_farmName", arr_farmName);
         intent.putExtra("cropFromBuyer",selected_item2);
         startActivity(intent);
 
@@ -119,6 +125,7 @@ public class Buyer extends AppCompatActivity {
         mListViewList = (ListView) findViewById(R.id.listView_address_list);
         mListViewList2 = (ListView) findViewById(R.id.listView_main_listX);
         mListViewList3 = (ListView) findViewById(listView_main_listY);
+        mListViewList4 = (ListView) findViewById(listView_main_FarmName);
 
         mEditTextSearchKeyword1 = (TextView) findViewById(R.id.selected_crop2);
 
@@ -129,6 +136,7 @@ public class Buyer extends AppCompatActivity {
                 mArrayList.clear();
                 mArrayList2.clear();
                 mArrayList3.clear();
+                mArrayList4.clear();
 
                 GetData task = new GetData();
                 task.execute(mEditTextSearchKeyword1.getText().toString());
@@ -138,6 +146,7 @@ public class Buyer extends AppCompatActivity {
         mArrayList = new ArrayList<>();
         mArrayList2 = new ArrayList<>();
         mArrayList3 = new ArrayList<>();
+        mArrayList4 = new ArrayList<>();
 
     }
 
@@ -169,6 +178,7 @@ public class Buyer extends AppCompatActivity {
             mJsonString1 = result;
             mJsonString2 = result;
             mJsonString3 = result;
+            mJsonString4 = result;
             showResult();
         }
 
@@ -178,7 +188,7 @@ public class Buyer extends AppCompatActivity {
 
             String searchKeyword1 = params[0];
 
-            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/query10.php";
+            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/queryForBuyer.php";
             String postParameters = "c_name=" + searchKeyword1;
 
             try {
@@ -326,6 +336,33 @@ public class Buyer extends AppCompatActivity {
         }
 
 
+        //농장이름 찍기
+        try {
+            JSONObject jsonObject = new JSONObject(mJsonString4);
+            JSONArray jsonArray4 = jsonObject.getJSONArray(TAG_JSON);
+
+            for (int i = 0; i < jsonArray4.length(); i++) {
+
+                JSONObject item = jsonArray4.getJSONObject(i);
+
+                String f_name = item.getString(TAG_FNAME);
+
+                HashMap<String, String> hashMap3 = new HashMap<>();
+
+                hashMap3.put(TAG_FNAME, f_name);
+                mArrayList4.add(hashMap3);
+            }
+            ListAdapter adapter = new SimpleAdapter(
+                    Buyer.this, mArrayList4, R.layout.list_fname,
+                    new String[]{TAG_FNAME},
+                    new int[]{R.id.textview_f_name}
+            );
+            mListViewList4.setAdapter(adapter);
+        } catch (JSONException e) {
+            Log.d(TAG, "showResult : ", e);
+        }
+
+
         ////////////////////////////////////////////////////////////////////
         //X,Y좌표 String[]으로 받아오기//
 
@@ -369,6 +406,20 @@ public class Buyer extends AppCompatActivity {
 
         for (int  k= 0; k <arr_address.length; k++) {
             Log.d("@@@@@@@@YYYYYYYY@@@@@@", arr_address[k]);
+        }
+
+
+        //F_name 받아오기
+        String sum4 = "";
+        for (HashMap<String, String> hash : mArrayList4) {
+            for (String current : hash.values()) {
+                sum4 = sum4 + current + "<#>";
+            }
+        }
+        arr_farmName = sum4.split("<#>");
+
+        for (int  k= 0; k <arr_farmName.length; k++) {
+            Log.d("@@@@@@@@YYYYYYYY@@@@@@", arr_farmName[k]);
         }
 
 

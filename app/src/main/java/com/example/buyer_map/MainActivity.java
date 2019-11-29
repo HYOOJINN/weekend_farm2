@@ -222,11 +222,8 @@ public class MainActivity extends AppCompatActivity
             Log.d("###", arraylist_y[k]);
         }
 
-        arraylist_farmName = intent.getExtras().getStringArray("arr_farmName");
-        for(int k = 0; k<  arraylist_farmName.length; k++){
-            Log.d("###", arraylist_farmName[k]);
-        }
-
+        arraylist_farmName = intent.getExtras().getStringArray("arr_farmName"); // 농장이름 배열로 받아오기
+        arraylist_address = intent.getExtras().getStringArray("arr_address"); // 농장주소 배열로 받아오기
 
 
         double[] double_arrX = new double[arraylist_x.length];
@@ -247,17 +244,27 @@ public class MainActivity extends AppCompatActivity
 
             farm_marker.position(new LatLng(double_arrX[i], double_arrY[i]));
             farm_marker.title(arraylist_farmName[i]);
+            farm_marker.snippet(arraylist_address[i]);
+
             BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.marker1);
             Bitmap b=bitmapdraw.getBitmap();
-            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false); // 이미지마커 등록
             farm_marker.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             mMap.addMarker(farm_marker);
 
 
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                public boolean onMarkerClick(Marker marker) {
+                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+                    mMap.animateCamera(zoom);
+                    return false;
+                }
+            });
+
+
+//            farm_marker.addListener('click', function() { mMap.setZoom(15); mMap.setCenter(this.getPosition());
 
 //            builder.include(farm_marker.getPosition());
-
         }
 
 

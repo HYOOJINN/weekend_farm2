@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
     String selected_item;
     String receive_address;
 
-//마커 한눈에 보기
+    //마커 한눈에 보기
     private LatLngBounds.Builder builder;
     private LatLngBounds bounds;
 
@@ -226,13 +226,13 @@ public class MainActivity extends AppCompatActivity
         arraylist_address = intent.getExtras().getStringArray("arr_address"); // 농장주소 배열로 받아오기
 
 
-        double[] double_arrX = new double[arraylist_x.length];
+        final double[] double_arrX = new double[arraylist_x.length];
 
         for(int i = 0; i<arraylist_x.length; i++){
             double_arrX[i] = Double.parseDouble(arraylist_x[i]);
         }
 
-        double[] double_arrY = new double[arraylist_y.length];
+        final double[] double_arrY = new double[arraylist_y.length];
 
         for(int i = 0; i<arraylist_y.length; i++){
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
@@ -252,11 +252,14 @@ public class MainActivity extends AppCompatActivity
             farm_marker.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
             mMap.addMarker(farm_marker);
 
-
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 public boolean onMarkerClick(Marker marker) {
                     CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
                     mMap.animateCamera(zoom);
+                    //mMap.animateCamera(CameraUpdateFactory.newLatLng(double_arrX[i], double_arrY[i]));
+                    Toast.makeText(getApplicationContext(),
+                            marker.getTitle() + " 클릭했음"
+                            , Toast.LENGTH_SHORT).show();
                     return false;
                 }
             });

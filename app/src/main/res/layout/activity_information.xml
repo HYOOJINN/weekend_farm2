@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:orientation="vertical"
+    android:layout_gravity="left"
     tools:context=".Information"
     >
 
@@ -14,6 +17,7 @@
         android:layout_height="39dp"
         android:layout_gravity="center"
         android:layout_marginTop="70dp"
+        android:layout_marginBottom="30dp"
         android:text="판매 정보"
         android:textColor="#000000"
         android:textSize="30sp"
@@ -24,7 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:orientation="horizontal"
-        android:layout_margin="10dp"
         tools:context=".Information">
 
         <TextView
@@ -32,7 +35,8 @@
             android:layout_width="110dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="제목: "
+            android:layout_marginTop="1dp"
+            android:text="제목:"
             android:textColor="#000000"
             android:textSize="18sp" />
 
@@ -40,9 +44,10 @@
             android:id="@+id/listView_title"
             android:layout_width="300dp"
             android:layout_height="35dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
+            android:textColor="#000000"
             android:dividerHeight="35dp"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -51,15 +56,15 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:orientation="horizontal"
-        tools:context=".Information"
-        android:layout_margin="10dp">
+        tools:context=".Information">
 
         <TextView
             android:id="@+id/textViewadd"
             android:layout_width="33dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="주소 : "
+            android:layout_marginTop="3dp"
+            android:text="주소:"
             android:textColor="#000000"
             android:textSize="18sp" />
         <TextView
@@ -68,7 +73,8 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:textSize="18sp"
-            android:gravity="center"/>
+            android:textColor="#000000"
+            android:gravity="left"/>
     </LinearLayout>
 
 
@@ -76,14 +82,14 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:orientation="horizontal"
-        tools:context=".Information"
-        android:layout_margin="10dp">
+        tools:context=".Information">
 
         <TextView
             android:id="@+id/textViewcr"
             android:layout_width="10dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginTop="3dp"
             android:text="농작물: "
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -91,55 +97,59 @@
             android:id="@+id/textView_crop"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="2.95"
+            android:textColor="#000000"
             android:textSize="18sp"
-            android:gravity="center"/>
+            android:gravity="left"/>
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:orientation="horizontal"
-        android:layout_margin="10dp"
         tools:context=".Information">
 
         <TextView
-            android:id="@+id/textViewtime"
-            android:layout_width="10dp"
+            android:id="@+id/time"
+            android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:text="등록 날짜: "
+            android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:text="작성일: "
             android:textColor="#000000"
             android:textSize="18sp" />
-
         <ListView
             android:id="@+id/listView_time"
-            android:layout_width="167dp"
-            android:layout_height="35dp"
-            android:layout_weight="6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="11"
             android:dividerHeight="35dp"
-            android:textSize="18sp" />
-
+            android:textSize="30sp" />
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/checkContent"
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:layout_marginTop="10dp"
         android:text="상세정보"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:gravity="center"/>
-
+        android:gravity="left"/>
 
     <ListView
         android:id="@+id/listView_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_weight="2.5"
-        android:dividerHeight="200dp"
-        android:textSize="30sp" />
+        android:textColor="#000000"
+        android:dividerHeight="400dp"
+        android:layout_gravity="left"
+        android:textSize="18sp"/>
+
+
 
     <Button
         android:id="@+id/button_main_search2"

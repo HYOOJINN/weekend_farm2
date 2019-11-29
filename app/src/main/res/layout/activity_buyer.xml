@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
+
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +17,8 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="70dp"
-        android:text="작물 선택"
+        android:layout_marginBottom="10dp"
+        android:text="농작물"
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -24,39 +28,50 @@
     <TextView
         android:id="@+id/select_crop_buyer"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:text="검색을 한 후 지도확인으로 넘어가주세요"
+        android:layout_marginBottom="10dp"
+        android:textColor="#000000"
         android:layout_gravity="center"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
         <TextView
             android:id="@+id/selected_crop2"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="match_parent"
+            android:layout_weight="7"
             android:textSize="18sp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:background="@drawable/border" />
 
         <Button
             android:id="@+id/button_main_search"
-            android:layout_width="0dp"
-            android:layout_weight="0.7"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="검색" />
+            android:layout_weight="0.3"
+            android:text="검색"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_design"/>
 
         <Button
             android:id="@+id/nextgo"
-            android:layout_width="0dp"
-            android:layout_weight="0.7"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="0.3"
             android:onClick="nextgo"
             android:text="지도 확인"
-            tools:ignore="OnClick" />
+            tools:ignore="OnClick"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_design"/>
 
     </LinearLayout>
 
@@ -88,21 +103,17 @@
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/select_crop_textview"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:text="농작물종류"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"/>
-
     <ListView
         android:id="@+id/crop_list"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:cacheColorHint="#FFF9F7E8"></ListView>
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#FFF9F7E8"
+        android:scrollbarSize="7dp"
+        android:scrollbarStyle="insideOverlay"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border"></ListView>
 
 </LinearLayout>

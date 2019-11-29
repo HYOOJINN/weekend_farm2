@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:adjustViewBounds="true"
     android:orientation="vertical"
     tools:context=".request">
@@ -13,6 +15,7 @@
         android:layout_height="39dp"
         android:text="관리자에게 요청하기"
         android:textSize="30sp"
+        android:textColor="#000000"
         android:textStyle="bold"
         android:typeface="monospace"
         android:layout_gravity="center"
@@ -30,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="  원하는 농작물이 있으신가요?"
+        android:textColor="#000000"
         tools:layout_editor_absoluteX="76dp"
         tools:layout_editor_absoluteY="161dp"
         android:textSize="18sp"
@@ -47,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="  작물 입력"
+            android:textColor="#000000"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="123dp"
             tools:layout_editor_absoluteY="195dp" />
@@ -68,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="  농장 정보가 더 필요하신가요?"
+        android:textColor="#000000"
         tools:layout_editor_absoluteX="76dp"
         tools:layout_editor_absoluteY="236dp"
         android:textSize="18sp"
@@ -86,13 +92,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="  주소 입력"
+            android:textColor="#000000"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="123dp"
             tools:layout_editor_absoluteY="274dp" />
 
         <EditText
             android:id="@+id/addressInput"
-            android:layout_width="248dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:hint=" 예) 서울시 양천구 양천로 24"
@@ -107,6 +114,8 @@
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:text="요청하기"
+        android:background="#189BA3"
+        android:textColor="#FFFFFAE7"
         android:layout_gravity="center"
         android:onClick="ClickButton1"/>
 

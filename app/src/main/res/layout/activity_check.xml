@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="250dp"
@@ -17,20 +16,55 @@
         android:background="@drawable/home">
     </ImageView>
 
-    <ImageButton
-        android:id="@+id/putinfo"
-        android:layout_width="275dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:background="@drawable/button_seller_insert_info"
-        android:onClick="putinfo"></ImageButton>
+<!--    <ImageButton-->
+<!--        android:id="@+id/putinfo"-->
+<!--        android:layout_width="275dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:background="@drawable/button_seller_insert_info"-->
+<!--        android:onClick="putinfo"></ImageButton>-->
 
-    <ImageButton
-        android:id="@+id/getinfo"
-        android:layout_width="275dp"
-        android:layout_height="60dp"
+<!--    <ImageButton-->
+<!--        android:id="@+id/getinfo"-->
+<!--        android:layout_width="275dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:background="@drawable/checktitle_button"-->
+<!--        android:onClick="getinfo"></ImageButton>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/checktitle_button"
-        android:onClick="getinfo"></ImageButton>
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/putinfo"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:onClick="putinfo"
+            android:text="판매 정보 입력"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            tools:ignore="OnClick"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_design"
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="center"/>
+        <Button
+            android:id="@+id/getinfo"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_design"
+            android:onClick="getinfo"
+            android:text="판매 정보 확인"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </LinearLayout>

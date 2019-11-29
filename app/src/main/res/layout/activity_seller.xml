@@ -4,22 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:orientation="vertical"
     >
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="299dp"
+        android:layout_width="286dp"
         android:layout_height="39dp"
         android:layout_gravity="center"
+        android:layout_margin="70dp"
         android:layout_marginTop="70dp"
         android:text="판매 농작물 정보 입력"
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:typeface="monospace"
-        android:layout_margin="70dp"
-        />
+        android:typeface="monospace" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +42,7 @@
 
         <EditText
             android:id="@+id/title"
-            android:layout_width="198dp"
+            android:layout_width="268dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:hint=" 예) 달달한 고구마 팔아요~"
@@ -52,14 +53,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         tools:context=".seller">
 
         <TextView
             android:id="@+id/textViewad"
-            android:layout_width="wrap_content"
+            android:layout_width="57dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_weight="3"
             android:text="  주소 입력"
             android:textColor="#000000"
@@ -69,33 +71,37 @@
 
         <ImageButton
             android:id="@+id/buttonAdd"
-            android:layout_width="42dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="26dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_weight="0.2"
-            android:onClick="buttonAdd"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            android:layout_margin="8dp"
+            android:background="@drawable/searching"
+            android:onClick="buttonAdd" />
 
         <TextView
             android:id="@+id/addressInput"
             android:layout_width="199dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="2.5"
-            android:textSize="18sp" />
+            android:layout_margin="1dp"
+            android:background="@drawable/border"
+            android:textSize="14sp"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         tools:context=".seller">
 
         <TextView
             android:id="@+id/textViewcr1"
-            android:layout_width="wrap_content"
+            android:layout_width="56dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_weight="3"
             android:text="  작물 입력"
             android:textColor="#000000"
@@ -105,19 +111,23 @@
 
         <ImageButton
             android:id="@+id/buttonCr"
-            android:layout_width="42dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="26dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/searching"
             android:layout_weight="0.2"
             android:onClick="buttonCr"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            android:layout_gravity="center"/>
 
+        <!--app:srcCompat="@android:drawable/ic_menu_search"-->
 
         <TextView
             android:id="@+id/cropInput"
             android:layout_width="198dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
             android:layout_weight="2.5"
+            android:background="@drawable/border"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -142,7 +152,7 @@
 
         <EditText
             android:id="@+id/pw"
-            android:layout_width="198dp"
+            android:layout_width="224dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:hint=" 비밀번호를 입력하세요"
@@ -156,23 +166,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2.5"
-        android:background="#FFFAE7"
+        android:background="@drawable/border"
         android:gravity="top"
-        android:hint=" 가격, 판매 가능 시간, 연락처 등 판매에 필요한 게시글 내용을 작성해주세요"
+        android:hint="\n 가격, 판매 가능 시간, 연락처 등 판매에 필요한 게시글 내용을 작성해주세요"
         android:inputType="textMultiLine"
-        android:textSize="18sp"
-        android:layout_margin="20dp"/>
+        android:textSize="18sp" />
 
 
     <Button
         android:id="@+id/btnComplete"
-        android:layout_width="100dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="20dp"
-        android:background="#189BA3"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_design"
         android:onClick="onSellerClick"
         android:text="입력 완료"
+        android:textColor="#FFFFFF"
         android:textSize="18sp" />
 
 
@@ -180,6 +190,7 @@
         android:id="@+id/sqltext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#0000FF00"
         android:text="TextView" />
 
 </LinearLayout>

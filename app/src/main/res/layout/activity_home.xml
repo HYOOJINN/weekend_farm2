@@ -13,12 +13,12 @@
         android:layout_gravity="center"
         android:layout_marginTop="150dp"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/home">
+        android:background="@drawable/logo">
     </ImageView>
 
     <LinearLayout
-        android:layout_width="238dp"
-        android:layout_height="75dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:orientation="horizontal">
@@ -28,17 +28,18 @@
             android:id="@+id/button"
             android:layout_width="115dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
             android:background="@drawable/seller_button"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="50dp"
             android:onClick="ClickButton1"></ImageButton>
+
+
+
 
         <ImageButton
             android:id="@+id/button2"
             android:layout_width="115dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
             android:background="@drawable/buyer_button"
             android:onClick="ClickButton2"></ImageButton>
 
@@ -46,11 +47,12 @@
 
     <ImageButton
         android:id="@+id/button4"
-        android:layout_width="250dp"
-        android:layout_height="51dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:background="@drawable/request_button"
-        android:onClick="ClickButton3">
+        android:onClick="ClickButton3"
+        android:layout_marginTop="20dp">
 
     </ImageButton>
 

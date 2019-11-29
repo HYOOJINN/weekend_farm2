@@ -5,77 +5,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Check2">
+    android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="10dp"
+        android:text="주소"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="농장 주소를 탐색한 후 확인을 누르세요"
+    android:layout_marginBottom="10dp"
+    android:textColor="#000000"
+    android:layout_gravity="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp">
 
         <TextView
+            android:text="검색"
+            android:textColor="#000000"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="26sp"
-            android:layout_marginRight="8dp"
-            android:id="@+id/textView_main_label"
-            android:text="주소 검색" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="18sp"
+            android:gravity="center" />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/textView1"
-            android:id="@+id/editsearch"/>
+            android:id="@+id/editsearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@drawable/border" />
 
     </LinearLayout>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
         <TextView
             android:id="@+id/selected_address2"
             android:layout_width="0dp"
-            android:layout_weight="0.35"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:background="@drawable/border" />
 
         <Button
             android:id="@+id/button_main_search"
-            android:layout_width="0dp"
-            android:layout_weight="0.3"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:text="search" />
+            android:layout_weight="0.3"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="탐색"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_design"/>
+
 
         <Button
             android:id="@+id/nextgogo"
-            android:layout_width="0dp"
-            android:layout_weight="0.3"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
             android:onClick="nextgogo"
-            android:text="next"
-            tools:ignore="OnClick" />
+            android:layout_weight="0.3"
+            android:text="확인"
+            tools:ignore="OnClick"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_design"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listView_main_list"
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
 
-    <TextView
-        android:id="@+id/textvieww"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="주소검색하고 search누르고, next" />
 
     <ListView
         android:id="@+id/addr_list"
         android:layout_width="match_parent"
-        android:layout_height="604dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/editsearch"
-        android:cacheColorHint="#8C8BC34A"
-        android:textFilterEnabled="true"></ListView>
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:cacheColorHint="#FFF9F7E8"
+        android:scrollbarSize="7dp"
+        android:scrollbarStyle="insideOverlay"
+        android:textFilterEnabled="true"
+        android:textSize="18sp"/>
 
-</LinearLayout>
+    <ListView
+        android:id="@+id/listView_main_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" /></LinearLayout>
+

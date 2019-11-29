@@ -19,16 +19,17 @@ public class Splash extends AppCompatActivity {
                 .withFullScreen()
                 .withTargetActivity(HomeActivity.class)
                 .withSplashTimeOut(3000) //3초
-                .withBackgroundColor(Color.rgb(249, 247, 233 ))
+                .withBackgroundColor(Color.rgb(24, 155, 163 ))
                 .withHeaderText("")
                 .withFooterText("Welcome!")
                 .withBeforeLogoText("")
-                .withAfterLogoText("WEEKEND FARM")
-                .withLogo(R.drawable.home);
+                .withAfterLogoText("")
 
-       // config.getHeaderTextView().setTextColor(Color.WHITE);
+                .withLogo(R.drawable.splash);
+
+        // config.getHeaderTextView().setTextColor(Color.WHITE);
         config.getFooterTextView().setTextColor(Color.rgb(24, 155, 163 ));
-       // config.getBeforeLogoTextView().setTextColor(Color.WHITE);
+        // config.getBeforeLogoTextView().setTextColor(Color.WHITE);
         config.getAfterLogoTextView().setTextColor(Color.rgb(24, 155, 163 ));
 
         View easySplashScreen = config.create();

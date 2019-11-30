@@ -92,9 +92,13 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     //buyer에서 받아온 주소 listview에 출력하기
     String[] arraylist_address;
+    String Distance;
     //ListView address_listview;
     String selected_item;
     String receive_address;
+
+    double[] double_arrX;
+    double[] double_arrY;
 
 
 
@@ -225,13 +229,13 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         arraylist_address = intent.getExtras().getStringArray("arr_address"); // 농장주소 배열로 받아오기
 
 
-        final double[] double_arrX = new double[arraylist_x.length];
+        double_arrX = new double[arraylist_x.length];
 
         for(int i = 0; i<arraylist_x.length; i++){
             double_arrX[i] = Double.parseDouble(arraylist_x[i]);
         }
 
-        final double[] double_arrY = new double[arraylist_y.length];
+        double_arrY = new double[arraylist_y.length];
 
         for(int i = 0; i<arraylist_y.length; i++){
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
@@ -262,6 +266,23 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             //마커 클릭 리스너
             this.mMap.setOnMarkerClickListener(markerClickListener);
 
+
+//                Location location_me = new Location("me");
+//                location_me.setLatitude(mLastKnownLocation.getLatitude());
+//                location_me.setLatitude(mLastKnownLocation.getLongitude());
+//
+//                Location location_farm = new Location("farm");
+//                location_farm.setLatitude(double_arrX[i]);
+//                location_farm.setLatitude(double_arrY[i]);
+//                Distance = Double.toString(location_me.distanceTo(location_farm));
+
+                Log.v("C_______LAT", Double.toString(mLastKnownLocation.getLatitude()));
+                Log.v("C_______LONG", Double.toString(mLastKnownLocation.getLongitude()));
+                Log.v("F_______LAT", Double.toString(double_arrX[i]));
+                Log.v("F_______LONG", Double.toString(double_arrY[i]));
+                Log.v("____DI___", Distance);
+
+
         }
 
         // Prompt the user for permission.
@@ -276,7 +297,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
 
     ///////////////////////////////////info랑 zoom 동시에 안됨///////////////////////////
-    //마커 클릭 리스너
+    /////////////마커 클릭 리스너-> ZOOM
     GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(Marker marker) {
@@ -338,6 +359,30 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Log.e("Exception: %s", e.getMessage());
         }
     }
+
+
+    //거리찍기
+//    public double getDistance(LatLng LatLng1, LatLng LatLng2){
+//        /////////거리찍기./////////
+//        //double[] Distance;
+//        Location location_me = new Location("me");
+//        location_me.setLatitude(mLastKnownLocation.getLatitude());
+//        location_me.setLatitude(mLastKnownLocation.getLongitude());
+//
+//        Location location_farm = new Location("farm");
+//        for(int i = 0; i<double_arrX.length; i++){
+//            location_farm.setLatitude(double_arrX[i]);
+//            location_farm.setLatitude(double_arrY[i]);
+//        }
+//        for(int j = 0; j<double_arrX.length; j++){
+//            Distance[j] = location_me.distanceTo()(location_farm;
+//        }
+
+//float distance = crntLocation.distanceTo(newLocation);  in meters
+//        float distance =crntLocation.distanceTo(newLocation) / 1000; // in km
+//    }
+
+
 
 
     /**

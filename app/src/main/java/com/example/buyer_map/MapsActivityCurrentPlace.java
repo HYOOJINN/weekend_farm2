@@ -70,7 +70,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 11;
+    private static final int DEFAULT_ZOOM = 10;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -84,10 +84,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     // Used for selecting the current place.
     private static final int M_MAX_ENTRIES = 5;
-    private String[] mLikelyPlaceNames;
-    private String[] mLikelyPlaceAddresses;
-    private String[] mLikelyPlaceAttributions;
-    private LatLng[] mLikelyPlaceLatLngs;
 
     // x,y,address 값 받아오기
     String[] arraylist_x;
@@ -204,30 +200,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
     }
 
-//    /**
-//     * Sets up the options menu.
-//     * @param menu The options menu.
-//     * @return Boolean.
-//     */
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.current_place_menu, menu);
-//        return true;
-//    }
-//
-//    /**
-//     * Handles a click on the menu option to get a place.
-//     * @param item The menu item to handle.
-//     * @return Boolean.
-//     */
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == R.id.option_get_place) {
-//            showCurrentPlace();
-//        }
-//        return true;
-//    }
-
     /**
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
@@ -265,17 +237,13 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
         }
 
-
-        LatLngBounds.Builder latlngBuilder = new LatLngBounds.Builder();
-
-        LatLng sydney1 = new LatLng(37.4229, 126.6516);
-
-        LatLng sydney2 = new LatLng(37.9019,127.0565);
-
-        latlngBuilder.include(sydney1);
-        latlngBuilder.include(sydney2);
-
-        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latlngBuilder.build(), 100));
+        //마커 모아서찍기
+//        LatLngBounds.Builder latlngBuilder = new LatLngBounds.Builder();
+//        LatLng sydney1 = new LatLng(37.4229, 126.6516);
+//        LatLng sydney2 = new LatLng(37.9019,127.0565);
+//        latlngBuilder.include(sydney1);
+//        latlngBuilder.include(sydney2);
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latlngBuilder.build(), 100));
 
         final MarkerOptions farm_marker = new  MarkerOptions();
 
@@ -291,50 +259,10 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             farm_marker.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
             mMap.addMarker(farm_marker);
 
-            //정보창 클릭 리스너
-            mMap.setOnInfoWindowClickListener(infoWindowClickListener);
-
             //마커 클릭 리스너
             this.mMap.setOnMarkerClickListener(markerClickListener);
 
-//            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//                public boolean onMarkerClick(Marker marker) {
-//                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-//                    mMap.animateCamera(zoom);
-//                    //mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-//                    return true;
-//                }
-//            });
-
         }
-
-
-
-        // Use a custom info window adapter to handle multiple lines of text in the
-        // info window contents.
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-
-                                      @Override
-                                      // Return null here, so that getInfoContents() is called next.
-                                      public View getInfoWindow(Marker arg0) {
-                                          return null;
-                                      }
-
-                                      @Override
-                                      public View getInfoContents(Marker marker) {
-                                          // Inflate the layouts for the info window, title and snippet.
-                                          View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-                                                  (FrameLayout) findViewById(R.id.map), false);
-
-                                          TextView title = ((TextView) infoWindow.findViewById(R.id.title));
-                                          title.setText(marker.getTitle());
-
-                                          TextView snippet = ((TextView) infoWindow.findViewById(R.id.snippet));
-                                          snippet.setText(marker.getSnippet());
-
-                                          return infoWindow;
-                                      }
-        });
 
         // Prompt the user for permission.
         getLocationPermission();
@@ -346,43 +274,23 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         getDeviceLocation();
     }
 
-    //정보창 클릭 리스너
-    GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
-        @Override
-        public void onInfoWindowClick(Marker marker) {
-            String markerId = marker.getId();
-            Toast.makeText(MapsActivityCurrentPlace.this, "정보창 클릭 Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
-        }
-    };
 
     ///////////////////////////////////info랑 zoom 동시에 안됨///////////////////////////
     //마커 클릭 리스너
     GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(Marker marker) {
-            String markerId = marker.getId();
-            //선택한 타겟위치
             LatLng location = marker.getPosition();
-            Toast.makeText(MapsActivityCurrentPlace.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
-            CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-            //mMap.animateCamera(zoom);
-           mMap.animateCamera(CameraUpdateFactory.newLatLngBounds((location.latitude, location.longitude), 15));
-            //mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
 
-//            CameraUpdate center = CameraUpdateFactory.newLatLng(marker.getPosition());
-//            mMap.animateCamera(center);
+            CameraUpdate center = CameraUpdateFactory.newLatLng(marker.getPosition());
+            mMap.animateCamera(center);
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.latitude, location.longitude), 15));
             return true;
         }
     };
 
-
-//    ////////////////////////marker click listener/////////////////////////////////
-//    public boolean onMarkerClick(Marker marker){
-//        CameraUpdate zoom = CameraUpdateFactory.zoomTo(17);
-//        mMap.animateCamera(zoom);
-//        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-//        return true;
-//    }
 
     /**
      * Gets the current location of the device, and positions the map's camera.
@@ -404,6 +312,18 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
+                            BitmapDrawable imageMarker = (BitmapDrawable) getResources().getDrawable(R.drawable.current);
+                            Bitmap bit = imageMarker.getBitmap();
+                            Bitmap smallMarker = Bitmap.createScaledBitmap(bit, 100, 100, false); // 이미지마커 등록
+
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mLastKnownLocation.getLatitude(),
+                                            mLastKnownLocation.getLongitude()))
+                                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+
+                            Log.v("####Lat###", Double.toString(mLastKnownLocation.getLatitude()));
+                            Log.v("####Long###", Double.toString(mLastKnownLocation.getLongitude()));
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
@@ -490,26 +410,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                     count = M_MAX_ENTRIES;
                                 }
 
-                                int i = 0;
-                                mLikelyPlaceNames = new String[count];
-                                mLikelyPlaceAddresses = new String[count];
-                                mLikelyPlaceAttributions = new String[count];
-                                mLikelyPlaceLatLngs = new LatLng[count];
-
-                                for (PlaceLikelihood placeLikelihood : likelyPlaces) {
-                                    // Build a list of likely places to show the user.
-                                    mLikelyPlaceNames[i] = (String) placeLikelihood.getPlace().getName();
-                                    mLikelyPlaceAddresses[i] = (String) placeLikelihood.getPlace()
-                                            .getAddress();
-                                    mLikelyPlaceAttributions[i] = (String) placeLikelihood.getPlace()
-                                            .getAttributions();
-                                    mLikelyPlaceLatLngs[i] = placeLikelihood.getPlace().getLatLng();
-
-                                    i++;
-                                    if (i > (count - 1)) {
-                                        break;
-                                    }
-                                }
 
                                 // Release the place likelihood buffer, to avoid memory leaks.
                                 likelyPlaces.release();
@@ -527,12 +427,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             // The user has not granted permission.
             Log.i(TAG, "The user did not grant location permission.");
 
-            // Add a default marker, because the user hasn't selected a place.
-//            mMap.addMarker(new MarkerOptions()
-//                    .title(getString(R.string.default_info_title))
-//                    .position(mDefaultLocation)
-//                    .snippet(getString(R.string.default_info_snippet)));
-
             // Prompt the user for permission.
             getLocationPermission();
         }
@@ -541,37 +435,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     /**
      * Displays a form allowing the user to select a place from a list of likely places.
      */
-    private void openPlacesDialog() {
-        // Ask the user to choose the place where they are now.
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // The "which" argument contains the position of the selected item.
-                LatLng markerLatLng = mLikelyPlaceLatLngs[which];
-                String markerSnippet = mLikelyPlaceAddresses[which];
-                if (mLikelyPlaceAttributions[which] != null) {
-                    markerSnippet = markerSnippet + "\n" + mLikelyPlaceAttributions[which];
-                }
-
-                // Add a marker for the selected place, with an info window
-                // showing information about that place.
-                mMap.addMarker(new MarkerOptions()
-                        .title(mLikelyPlaceNames[which])
-                        .position(markerLatLng)
-                        .snippet(markerSnippet));
-
-                // Position the map's camera at the location of the marker.
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLatLng,
-                        DEFAULT_ZOOM));
-            }
-        };
-
-//        // Display the dialog.
-//        AlertDialog dialog = new AlertDialog.Builder(this)
-//                .setTitle(R.string.pick_place)
-//                .setItems(mLikelyPlaceNames, listener)
-//                .show();
-    }
+    private void openPlacesDialog() {}
 
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.

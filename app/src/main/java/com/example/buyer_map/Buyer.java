@@ -1,5 +1,6 @@
 package com.example.buyer_map;
 //구매자 버튼에서 연결되는 crop
+//깃테스트
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;

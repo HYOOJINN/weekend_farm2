@@ -23,6 +23,10 @@ android {
     }
 }
 
+dependencies {
+    implementation 'com.google.android.libraries.places:places-compat:2.0.0'
+}
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

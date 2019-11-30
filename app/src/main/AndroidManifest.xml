@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".InformationB"></activity>
+        <activity android:name=".MapsActivityCurrentPlace"></activity>
+        <activity android:name=".InformationB" />
         <activity android:name=".Information2" />
         <activity android:name=".CheckTitle" />
         <activity android:name=".Check" />
@@ -55,6 +56,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDSISTzJdZYFiSQhJN96J4TJ4WqdL_d0y8" />
+
+
 
         <activity android:name=".MapsActivity">
             <intent-filter>

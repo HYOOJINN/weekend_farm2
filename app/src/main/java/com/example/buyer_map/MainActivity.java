@@ -257,9 +257,6 @@ public class MainActivity extends AppCompatActivity
                     CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
                     mMap.animateCamera(zoom);
                     //mMap.animateCamera(CameraUpdateFactory.newLatLng(double_arrX[i], double_arrY[i]));
-                    Toast.makeText(getApplicationContext(),
-                            marker.getTitle() + " 클릭했음"
-                            , Toast.LENGTH_SHORT).show();
                     return false;
                 }
             });

@@ -105,6 +105,9 @@ public class Information2 extends AppCompatActivity {
                                                      task.execute(inputpw.getText().toString(), textinfo.getText().toString());
                                                      Toast.makeText(getApplicationContext(), "게시글을 삭제합니다 ", Toast.LENGTH_LONG).show();
 
+                                                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                                     startActivity(intent);
+
                                                  } else {
                                                      Toast.makeText(getApplicationContext(), "비밀번호가 틀렸습니다 ", Toast.LENGTH_LONG).show();
                                                  }

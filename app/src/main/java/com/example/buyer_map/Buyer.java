@@ -77,7 +77,7 @@ public class Buyer extends AppCompatActivity {
 
     public void nextgo(View v) {
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MapsActivityCurrentPlace.class);
         intent.putExtra("arr_x", arr_X);
         intent.putExtra("arr_y", arr_Y);
         intent.putExtra("arr_address", arr_address);

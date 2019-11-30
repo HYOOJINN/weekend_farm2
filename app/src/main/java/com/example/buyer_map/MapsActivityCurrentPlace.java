@@ -44,6 +44,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -69,7 +70,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 12;
+    private static final int DEFAULT_ZOOM = 11;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -188,6 +189,9 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     }
 
+
+
+
     /**
      * Saves the state of the map when the activity is paused.
      */
@@ -261,34 +265,50 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
         }
 
-        LatLng farm[];
-        MarkerOptions farm_marker = new  MarkerOptions();
-        for(int i = 0; i<double_arrX.length; i++){
+
+        LatLngBounds.Builder latlngBuilder = new LatLngBounds.Builder();
+
+        LatLng sydney1 = new LatLng(37.4229, 126.6516);
+
+        LatLng sydney2 = new LatLng(37.9019,127.0565);
+
+        latlngBuilder.include(sydney1);
+        latlngBuilder.include(sydney2);
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latlngBuilder.build(), 100));
+
+        final MarkerOptions farm_marker = new  MarkerOptions();
+
+        for(int i = 0; i<double_arrX.length; i++) {
 
             farm_marker.position(new LatLng(double_arrX[i], double_arrY[i]));
             farm_marker.title(arraylist_farmName[i]);
             farm_marker.snippet(arraylist_address[i]);
 
-            BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.marker1);
-            Bitmap b=bitmapdraw.getBitmap();
+            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker1);
+            Bitmap b = bitmapdraw.getBitmap();
             Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false); // 이미지마커 등록
             farm_marker.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
             mMap.addMarker(farm_marker);
 
-            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                public boolean onMarkerClick(Marker marker) {
-                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-                    mMap.animateCamera(zoom);
-                    //mMap.animateCamera(CameraUpdateFactory.newLatLng(double_arrX[i], double_arrY[i]));
-                    return false;
-                }
-            });
+            //정보창 클릭 리스너
+            mMap.setOnInfoWindowClickListener(infoWindowClickListener);
 
+            //마커 클릭 리스너
+            this.mMap.setOnMarkerClickListener(markerClickListener);
 
-//            farm_marker.addListener('click', function() { mMap.setZoom(15); mMap.setCenter(this.getPosition());
+//            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//                public boolean onMarkerClick(Marker marker) {
+//                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+//                    mMap.animateCamera(zoom);
+//                    //mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+//                    return true;
+//                }
+//            });
 
-//            builder.include(farm_marker.getPosition());
         }
+
+
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
@@ -325,6 +345,44 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
     }
+
+    //정보창 클릭 리스너
+    GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            String markerId = marker.getId();
+            Toast.makeText(MapsActivityCurrentPlace.this, "정보창 클릭 Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    ///////////////////////////////////info랑 zoom 동시에 안됨///////////////////////////
+    //마커 클릭 리스너
+    GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+            String markerId = marker.getId();
+            //선택한 타겟위치
+            LatLng location = marker.getPosition();
+            Toast.makeText(MapsActivityCurrentPlace.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
+            CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+            //mMap.animateCamera(zoom);
+           mMap.animateCamera(CameraUpdateFactory.newLatLngBounds((location.latitude, location.longitude), 15));
+            //mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+
+//            CameraUpdate center = CameraUpdateFactory.newLatLng(marker.getPosition());
+//            mMap.animateCamera(center);
+            return true;
+        }
+    };
+
+
+//    ////////////////////////marker click listener/////////////////////////////////
+//    public boolean onMarkerClick(Marker marker){
+//        CameraUpdate zoom = CameraUpdateFactory.zoomTo(17);
+//        mMap.animateCamera(zoom);
+//        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+//        return true;
+//    }
 
     /**
      * Gets the current location of the device, and positions the map's camera.

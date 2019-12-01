@@ -50,6 +50,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Arrays;
+
 /**
  * An activity that displays a map showing the place at the device's current location.
  */
@@ -92,13 +94,16 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     //buyer에서 받아온 주소 listview에 출력하기
     String[] arraylist_address;
-    String Distance;
+
     //ListView address_listview;
     String selected_item;
     String receive_address;
 
     double[] double_arrX;
     double[] double_arrY;
+    String[] Distance;
+    float[] distance = {};
+
 
 
 
@@ -183,35 +188,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
                 builder.show();
             }
-
         });
-
-
-    }
-
-
-
-
-    /**
-     * Saves the state of the map when the activity is paused.
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        if (mMap != null) {
-            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
-            outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
-            super.onSaveInstanceState(outState);
-        }
-    }
-
-    /**
-     * Manipulates the map when it's available.
-     * This callback is triggered when the map is ready to be used.
-     */
-    @Override
-    public void onMapReady(GoogleMap map) {
-        mMap = map;
-
 
         ////////////////////////////////주소 받아와서 마커찍기 //////////////////////////////////
         Intent intent = getIntent();
@@ -240,6 +217,31 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         for(int i = 0; i<arraylist_y.length; i++){
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
         }
+    }
+
+
+
+
+    /**
+     * Saves the state of the map when the activity is paused.
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (mMap != null) {
+            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
+            outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
+            super.onSaveInstanceState(outState);
+        }
+    }
+
+    /**
+     * Manipulates the map when it's available.
+     * This callback is triggered when the map is ready to be used.
+     */
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+
 
         //마커 모아서찍기
 //        LatLngBounds.Builder latlngBuilder = new LatLngBounds.Builder();
@@ -270,8 +272,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             mMap.setOnInfoWindowClickListener(infoWindowClickListener);
 
 
-
-
 //                Location location_me = new Location("me");
 //                location_me.setLatitude(mLastKnownLocation.getLatitude());
 //                location_me.setLatitude(mLastKnownLocation.getLongitude());
@@ -286,8 +286,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 //                Log.v("F_______LAT", Double.toString(double_arrX[i]));
 //                Log.v("F_______LONG", Double.toString(double_arrY[i]));
 //                Log.v("____DI___", Distance);
-
-
         }
 
         // Prompt the user for permission.
@@ -324,6 +322,9 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     };
 
 
+
+
+
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
@@ -354,19 +355,26 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                             mLastKnownLocation.getLongitude()))
                                     .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
-                            Location location_me = new Location("me");
-                            location_me.setLatitude(mLastKnownLocation.getLatitude());
-                            location_me.setLongitude(mLastKnownLocation.getLongitude());
+//                            for(int i =0; i< arraylist_x.length; i++){
+//
+//                               // distance = new float[i];
+//
+//                                Location location_me = new Location("me");
+//                                location_me.setLatitude(mLastKnownLocation.getLatitude());
+//                                location_me.setLongitude(mLastKnownLocation.getLongitude());
+//
+//                                Location location_farm = new Location("farm");
+//                                location_farm.setLatitude(Double.parseDouble(arraylist_x[i]));
+//                                location_farm.setLongitude(Double.parseDouble(arraylist_y[i]));
+//
+//                               // Distance[i] = Double.toString(location_me.distanceTo(location_farm)/1000);
+//                                distance[i] =location_me.distanceTo(location_farm);
+//
+//                                Log.v("####Lat###", arraylist_x[i]);
+//                                Log.v("####Long###", arraylist_y[i]);
+//                                // Log.v("####DISTANCE###", Double.toString(distance[i]));
+//                            }
 
-                            Location location_farm = new Location("farm");
-                            location_farm.setLatitude(37.62805098);
-                            location_farm.setLongitude(126.926374);
-                            Distance = Double.toString(location_me.distanceTo(location_farm)/1000);
-
-
-                            Log.v("####Lat###", Double.toString(mLastKnownLocation.getLatitude()));
-                            Log.v("####Long###", Double.toString(mLastKnownLocation.getLongitude()));
-                            Log.v("####DISTANCE###", Distance);
 
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -382,6 +390,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Log.e("Exception: %s", e.getMessage());
         }
     }
+
+
 
 
     //거리찍기

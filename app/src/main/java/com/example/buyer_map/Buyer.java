@@ -190,7 +190,8 @@ public class Buyer extends AppCompatActivity {
 
             String searchKeyword1 = params[0];
 
-            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/queryForBuyer.php";
+            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/que" +
+                    "ryForBuyer.php";
             String postParameters = "c_name=" + searchKeyword1;
 
             try {
@@ -198,19 +199,16 @@ public class Buyer extends AppCompatActivity {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
 
-
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
                 outputStream.close();
-
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d(TAG, "response code - " + responseStatusCode);
@@ -222,7 +220,6 @@ public class Buyer extends AppCompatActivity {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -233,25 +230,20 @@ public class Buyer extends AppCompatActivity {
                     sb.append(line);
                 }
 
-
                 bufferedReader.close();
 
-
                 return sb.toString().trim();
-
 
             } catch (Exception e) {
 
                 Log.d(TAG, "InsertData: Error ", e);
                 errorString = e.toString();
-
                 return null;
             }
 
         }
 
     }
-
 
     private void showResult() {
         //주소찍기
@@ -262,13 +254,9 @@ public class Buyer extends AppCompatActivity {
             for(int i=0;i<jsonArray1.length();i++){
 
                 JSONObject item = jsonArray1.getJSONObject(i);
-
                 String f_address = item.getString(TAG_FADDRESS);
-
                 HashMap<String,String> hashMap = new HashMap<>();
-
                 hashMap.put(TAG_FADDRESS, f_address);
-
                 mArrayList.add(hashMap);
             }
             ListAdapter adapter = new SimpleAdapter(
@@ -280,7 +268,6 @@ public class Buyer extends AppCompatActivity {
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
         }
-
 
         //x좌표 찍기
         try {

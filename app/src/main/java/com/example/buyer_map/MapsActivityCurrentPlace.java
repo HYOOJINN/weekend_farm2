@@ -173,7 +173,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                         resultIntent2.putExtra("addressFromMain", selected_item);
                         resultIntent2.putExtra("cropFromMain", receive_address);
                         startActivity(resultIntent2);
-                        Toast.makeText(getApplicationContext(), "OK Click", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(), "OK Click", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -182,7 +182,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        Toast.makeText(getApplicationContext(), "Cancel Click", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(), "Cancel Click", Toast.LENGTH_SHORT).show();
                     }
                 });
 

@@ -240,13 +240,13 @@ public class Seller extends AppCompatActivity {
     public void buttonAdd(View v){
         Intent intent=new Intent(getApplicationContext(),Farm.class);
         startActivityForResult(intent, Code.requestCode);
-        Toast.makeText(getApplicationContext(),"주소를 등록하세요",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),"주소를 등록하세요",Toast.LENGTH_LONG).show();
     }
 
     public void buttonCr(View v){
         Intent intent2=new Intent(getApplicationContext(),Crop.class);
         startActivityForResult(intent2, Code2.requestCode2);
-        Toast.makeText(getApplicationContext(),"농작물을 등록하세요",Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),"농작물을 등록하세요",Toast.LENGTH_LONG).show();
     }
 //    public void btnHot(View v){
 //        Intent intent=new Intent(getApplicationContext(),hotItem.class);

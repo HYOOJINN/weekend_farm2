@@ -266,6 +266,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             //마커 클릭 리스너
             this.mMap.setOnMarkerClickListener(markerClickListener);
 
+            //정보창 클릭 리스너
+            mMap.setOnInfoWindowClickListener(infoWindowClickListener);
+
+
+
 
 //                Location location_me = new Location("me");
 //                location_me.setLatitude(mLastKnownLocation.getLatitude());
@@ -275,12 +280,12 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 //                location_farm.setLatitude(double_arrX[i]);
 //                location_farm.setLatitude(double_arrY[i]);
 //                Distance = Double.toString(location_me.distanceTo(location_farm));
-
-                Log.v("C_______LAT", Double.toString(mLastKnownLocation.getLatitude()));
-                Log.v("C_______LONG", Double.toString(mLastKnownLocation.getLongitude()));
-                Log.v("F_______LAT", Double.toString(double_arrX[i]));
-                Log.v("F_______LONG", Double.toString(double_arrY[i]));
-                Log.v("____DI___", Distance);
+//
+//               Log.v("C_______LAT", Double.toString(mLastKnownLocation.getLatitude()));
+//                Log.v("C_______LONG", Double.toString(mLastKnownLocation.getLongitude()));
+//                Log.v("F_______LAT", Double.toString(double_arrX[i]));
+//                Log.v("F_______LONG", Double.toString(double_arrY[i]));
+//                Log.v("____DI___", Distance);
 
 
         }
@@ -295,20 +300,26 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         getDeviceLocation();
     }
 
-
-    ///////////////////////////////////info랑 zoom 동시에 안됨///////////////////////////
     /////////////마커 클릭 리스너-> ZOOM
     GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(Marker marker) {
             LatLng location = marker.getPosition();
 
+            //마커 클릭시 지도 가운데로 이동시킨 후 ZOOM
             CameraUpdate center = CameraUpdateFactory.newLatLng(marker.getPosition());
             mMap.animateCamera(center);
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(location.latitude, location.longitude), 15));
-            return true;
+            return false;
+        }
+    };
+
+    //정보창 클릭 리스너
+    GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
+        @Override
+        public void onInfoWindowClick(Marker marker) {
         }
     };
 
@@ -343,8 +354,20 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                             mLastKnownLocation.getLongitude()))
                                     .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
+                            Location location_me = new Location("me");
+                            location_me.setLatitude(mLastKnownLocation.getLatitude());
+                            location_me.setLongitude(mLastKnownLocation.getLongitude());
+
+                            Location location_farm = new Location("farm");
+                            location_farm.setLatitude(37.62805098);
+                            location_farm.setLongitude(126.926374);
+                            Distance = Double.toString(location_me.distanceTo(location_farm)/1000);
+
+
                             Log.v("####Lat###", Double.toString(mLastKnownLocation.getLatitude()));
                             Log.v("####Long###", Double.toString(mLastKnownLocation.getLongitude()));
+                            Log.v("####DISTANCE###", Distance);
+
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());

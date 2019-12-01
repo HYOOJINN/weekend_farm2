@@ -257,7 +257,6 @@ public class Buyer extends AppCompatActivity {
         //주소찍기
         try {
             JSONObject jsonObject = new JSONObject(mJsonString1);
-            Log.v("rrrrrrrrrrrrrrrrr", mJsonString1);
             JSONArray jsonArray1 = jsonObject.getJSONArray(TAG_JSON);
 
             for(int i=0;i<jsonArray1.length();i++){

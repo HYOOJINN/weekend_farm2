@@ -15,7 +15,7 @@ public class request extends AppCompatActivity {
         setContentView(R.layout.activity_request);
     }
     public void ClickButton1(View v){
-        Intent intent = new Intent(getApplicationContext(), MapsActivityCurrentPlace.class);
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(),"요청을 완료했습니다.",Toast.LENGTH_LONG).show();
     }

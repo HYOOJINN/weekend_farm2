@@ -144,7 +144,7 @@ public class Information extends AppCompatActivity {
             String searchKeyword2 = params[1];
 
 
-            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/queryForinfo.php";
+            String serverURL = "http://ec2-3-14-72-47.us-east-2.compute.amazonaws.com/queryForinfo.php";
             String postParameters = "c_name=" + searchKeyword1 + "&f_address=" + searchKeyword2;
 
 

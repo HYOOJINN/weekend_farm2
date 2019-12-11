@@ -190,8 +190,7 @@ public class Buyer extends AppCompatActivity {
 
             String searchKeyword1 = params[0];
 
-            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/que" +
-                    "ryForBuyer.php";
+            String serverURL = "http://ec2-3-14-72-47.us-east-2.compute.amazonaws.com/queryForBuyer.php";
             String postParameters = "c_name=" + searchKeyword1;
 
             try {

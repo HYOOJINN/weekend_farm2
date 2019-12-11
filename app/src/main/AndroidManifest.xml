@@ -46,10 +46,10 @@
             android:name=".Splash"
             android:label="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+                <action android:nam
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>e="android.intent.action.MAIN" />
+
         </activity>
         <activity android:name=".HomeActivity" />
 

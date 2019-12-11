@@ -7,21 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.Bundle;
-//import android.support.annotation.NonNull;
-//import android.support.v4.app.ActivityCompat;
-//import android.support.v4.content.ContextCompat;
-//import android.support.v7.app.AlertDialog;
-//import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -31,11 +21,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.PlaceLikelihood;
-import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -44,17 +29,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.util.Arrays;
-
-/**
- * An activity that displays a map showing the place at the device's current location.
- */
+// 이용자의 현재 위치와 농장 위치를 마커로 구현한 Activity
 public class MapsActivityCurrentPlace extends AppCompatActivity
         implements OnMapReadyCallback {
 
@@ -62,15 +42,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
 
-    // The entry points to the Places API.
-    private GeoDataClient mGeoDataClient;
-    private PlaceDetectionClient mPlaceDetectionClient;
-
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
-    // not granted.
+    // not granted. //////////////////////////default location : 서울시로 바꾸기
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
     private static final int DEFAULT_ZOOM = 10;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -101,10 +77,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     double[] double_arrX;
     double[] double_arrY;
-    String[] Distance;
-    float[] distance = {};
-
-
 
 
     @Override
@@ -117,19 +89,13 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
 
-        // Retrieve the content view that renders the map.
+        // activity_maps_current_place.XML의 fragment layout(activity_maps_current_place)에 지도 출력
         setContentView(R.layout.activity_maps_current_place);
 
-        // Construct a GeoDataClient.
-        mGeoDataClient = Places.getGeoDataClient(this, null);
+//        // Construct a FusedLocationProviderClient.
+//        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        // Construct a PlaceDetectionClient.
-        mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
-
-        // Construct a FusedLocationProviderClient.
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        // Build the map.
+        // Build the map. -> Google map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -138,19 +104,15 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         Intent intent4 = getIntent();
         receive_address = intent4.getStringExtra("cropFromBuyer");
 
-        ///////////////////////////////////////
         //buyer에서 받아온 주소 listview에 출력하기
 
         ListView address_listview = (ListView) findViewById(R.id.mark_address_list);
         Intent intent2 = getIntent();
         arraylist_address = intent2.getExtras().getStringArray("arr_address");
-        for(int j = 0; j<  arraylist_address.length; j++){
-            Log.d("###", arraylist_address[j]);
-        }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, arraylist_address);
         address_listview.setAdapter(adapter);
-
 
 
         //리스트뷰의 아이템을 클릭시 해당 아이템의 문자열을 가져오기 위한 처리
@@ -173,8 +135,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                         resultIntent2.putExtra("addressFromMain", selected_item);
                         resultIntent2.putExtra("cropFromMain", receive_address);
                         startActivity(resultIntent2);
-                       // Toast.makeText(getApplicationContext(), "OK Click", Toast.LENGTH_SHORT).show();
-
                     }
                 });
 
@@ -182,10 +142,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id)
                     {
-                       // Toast.makeText(getApplicationContext(), "Cancel Click", Toast.LENGTH_SHORT).show();
                     }
                 });
-
                 builder.show();
             }
         });
@@ -193,33 +151,21 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         ////////////////////////////////주소 받아와서 마커찍기 //////////////////////////////////
         Intent intent = getIntent();
         arraylist_x = intent.getExtras().getStringArray("arr_x");
-        for(int j = 0; j<  arraylist_x.length; j++){
-            Log.d("###", arraylist_x[j]);
-        }
-
         arraylist_y = intent.getExtras().getStringArray("arr_y");
-        for(int k = 0; k<  arraylist_y.length; k++){
-            Log.d("###", arraylist_y[k]);
-        }
 
         arraylist_farmName = intent.getExtras().getStringArray("arr_farmName"); // 농장이름 배열로 받아오기
         arraylist_address = intent.getExtras().getStringArray("arr_address"); // 농장주소 배열로 받아오기
 
-
         double_arrX = new double[arraylist_x.length];
-
         for(int i = 0; i<arraylist_x.length; i++){
             double_arrX[i] = Double.parseDouble(arraylist_x[i]);
         }
 
         double_arrY = new double[arraylist_y.length];
-
         for(int i = 0; i<arraylist_y.length; i++){
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
         }
     }
-
-
 
 
     /**
@@ -242,15 +188,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
-
-        //마커 모아서찍기
-//        LatLngBounds.Builder latlngBuilder = new LatLngBounds.Builder();
-//        LatLng sydney1 = new LatLng(37.4229, 126.6516);
-//        LatLng sydney2 = new LatLng(37.9019,127.0565);
-//        latlngBuilder.include(sydney1);
-//        latlngBuilder.include(sydney2);
-//        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latlngBuilder.build(), 100));
-
         final MarkerOptions farm_marker = new  MarkerOptions();
 
         for(int i = 0; i<double_arrX.length; i++) {
@@ -271,21 +208,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             //정보창 클릭 리스너
             mMap.setOnInfoWindowClickListener(infoWindowClickListener);
 
-
-//                Location location_me = new Location("me");
-//                location_me.setLatitude(mLastKnownLocation.getLatitude());
-//                location_me.setLatitude(mLastKnownLocation.getLongitude());
-//
-//                Location location_farm = new Location("farm");
-//                location_farm.setLatitude(double_arrX[i]);
-//                location_farm.setLatitude(double_arrY[i]);
-//                Distance = Double.toString(location_me.distanceTo(location_farm));
-//
-//               Log.v("C_______LAT", Double.toString(mLastKnownLocation.getLatitude()));
-//                Log.v("C_______LONG", Double.toString(mLastKnownLocation.getLongitude()));
-//                Log.v("F_______LAT", Double.toString(double_arrX[i]));
-//                Log.v("F_______LONG", Double.toString(double_arrY[i]));
-//                Log.v("____DI___", Distance);
         }
 
         // Prompt the user for permission.
@@ -321,10 +243,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
     };
 
-
-
-
-
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
@@ -355,27 +273,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                             mLastKnownLocation.getLongitude()))
                                     .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
-//                            for(int i =0; i< arraylist_x.length; i++){
-//
-//                               // distance = new float[i];
-//
-//                                Location location_me = new Location("me");
-//                                location_me.setLatitude(mLastKnownLocation.getLatitude());
-//                                location_me.setLongitude(mLastKnownLocation.getLongitude());
-//
-//                                Location location_farm = new Location("farm");
-//                                location_farm.setLatitude(Double.parseDouble(arraylist_x[i]));
-//                                location_farm.setLongitude(Double.parseDouble(arraylist_y[i]));
-//
-//                               // Distance[i] = Double.toString(location_me.distanceTo(location_farm)/1000);
-//                                distance[i] =location_me.distanceTo(location_farm);
-//
-//                                Log.v("####Lat###", arraylist_x[i]);
-//                                Log.v("####Long###", arraylist_y[i]);
-//                                // Log.v("####DISTANCE###", Double.toString(distance[i]));
-//                            }
-
-
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
@@ -390,33 +287,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Log.e("Exception: %s", e.getMessage());
         }
     }
-
-
-
-
-    //거리찍기
-//    public double getDistance(LatLng LatLng1, LatLng LatLng2){
-//        /////////거리찍기./////////
-//        //double[] Distance;
-//        Location location_me = new Location("me");
-//        location_me.setLatitude(mLastKnownLocation.getLatitude());
-//        location_me.setLatitude(mLastKnownLocation.getLongitude());
-//
-//        Location location_farm = new Location("farm");
-//        for(int i = 0; i<double_arrX.length; i++){
-//            location_farm.setLatitude(double_arrX[i]);
-//            location_farm.setLatitude(double_arrY[i]);
-//        }
-//        for(int j = 0; j<double_arrX.length; j++){
-//            Distance[j] = location_me.distanceTo()(location_farm;
-//        }
-
-//float distance = crntLocation.distanceTo(newLocation);  in meters
-//        float distance =crntLocation.distanceTo(newLocation) / 1000; // in km
-//    }
-
-
-
 
     /**
      * Prompts the user for permission to use the device location.
@@ -457,63 +327,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
         updateLocationUI();
     }
-
-    /**
-     * Prompts the user to select the current place from a list of likely places, and shows the
-     * current place on the map - provided the user has granted location permission.
-     */
-    private void showCurrentPlace() {
-        if (mMap == null) {
-            return;
-        }
-
-        if (mLocationPermissionGranted) {
-            // Get the likely places - that is, the businesses and other points of interest that
-            // are the best match for the device's current location.
-            @SuppressWarnings("MissingPermission") final
-            Task<PlaceLikelihoodBufferResponse> placeResult =
-                    mPlaceDetectionClient.getCurrentPlace(null);
-            placeResult.addOnCompleteListener
-                    (new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
-                        @Override
-                        public void onComplete(@NonNull Task<PlaceLikelihoodBufferResponse> task) {
-                            if (task.isSuccessful() && task.getResult() != null) {
-                                PlaceLikelihoodBufferResponse likelyPlaces = task.getResult();
-
-                                // Set the count, handling cases where less than 5 entries are returned.
-                                int count;
-                                if (likelyPlaces.getCount() < M_MAX_ENTRIES) {
-                                    count = likelyPlaces.getCount();
-                                } else {
-                                    count = M_MAX_ENTRIES;
-                                }
-
-
-                                // Release the place likelihood buffer, to avoid memory leaks.
-                                likelyPlaces.release();
-
-                                // Show a dialog offering the user the list of likely places, and add a
-                                // marker at the selected place.
-                                openPlacesDialog();
-
-                            } else {
-                                Log.e(TAG, "Exception: %s", task.getException());
-                            }
-                        }
-                    });
-        } else {
-            // The user has not granted permission.
-            Log.i(TAG, "The user did not grant location permission.");
-
-            // Prompt the user for permission.
-            getLocationPermission();
-        }
-    }
-
-    /**
-     * Displays a form allowing the user to select a place from a list of likely places.
-     */
-    private void openPlacesDialog() {}
 
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.

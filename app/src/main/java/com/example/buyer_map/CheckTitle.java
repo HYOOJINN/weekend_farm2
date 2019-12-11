@@ -162,7 +162,7 @@ public class CheckTitle extends AppCompatActivity {
             String searchKeyword1 = params[0];
 
 
-            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/content.php";;
+            String serverURL = "http://ec2-3-14-72-47.us-east-2.compute.amazonaws.com/content.php";;
             String postParameters = "s_name=" + searchKeyword1 ;
 
             try {

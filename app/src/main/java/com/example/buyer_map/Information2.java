@@ -148,7 +148,7 @@ public class Information2 extends AppCompatActivity {
             String searchKeyword1 = params[0];
             String searchKeyword2 = params[1];
 
-            String serverURL = "http://ec2-3-134-104-28.us-east-2.compute.amazonaws.com/delete2.php";
+            String serverURL = "http://ec2-3-14-72-47.us-east-2.compute.amazonaws.com/delete2.php";
             String postParameters = "pw=" + searchKeyword1 +"&s_name=" + searchKeyword2;
 
             try {

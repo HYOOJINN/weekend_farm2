@@ -1,6 +1,4 @@
 package com.example.buyer_map;
-// buyer가 확인하는 information
-
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -29,7 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+// 구매자가 선택한 작물, 농장을 기반으로 판매 게시물 정보를 출력하는 Activity
 public class Information extends AppCompatActivity {
 
     private TextView mTextViewaddress;
@@ -58,7 +56,7 @@ public class Information extends AppCompatActivity {
     TextView mEditTextSearchKeyword1;
     TextView mEditTextSearchKeyword2;
 
-    public void btnOkay2(View v) {
+    public void btnOkay2(View v) { //home화면으로 돌아가기 위한 버튼
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
        startActivity(intent);
         finish();
@@ -69,7 +67,7 @@ public class Information extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
 
-        ///////주소, 작물 값 읽어와서 저장하기기
+        //MapsActivityCurrnetPlace Activity에서 주소, 작물 정보 읽어와서 TextView에 저장하기
         Intent intent3 = getIntent();
         receive_address = intent3.getStringExtra("addressFromMain");
         mTextViewaddress = (TextView)findViewById(R.id.textView_address);
@@ -78,8 +76,8 @@ public class Information extends AppCompatActivity {
         receive_crop = intent3.getStringExtra("cropFromMain");
         mTextViewcrop = (TextView) findViewById(R.id.textView_crop);
         mTextViewcrop.setText(receive_crop);
-        ////////////////////////////////
 
+        //농장 이름, 게시물의 내용, 게시글 등록 시간을 list 형식으로 저장하기
         mlistViewtitle = (ListView) findViewById(R.id.listView_title);
         mlistViewcontnet= (ListView) findViewById(R.id.listView_content);
         mlistViewtime= (ListView) findViewById(R.id.listView_time);
@@ -87,11 +85,11 @@ public class Information extends AppCompatActivity {
         mEditTextSearchKeyword1 = (TextView) findViewById(R.id.textView_crop);
         mEditTextSearchKeyword2 = (TextView) findViewById(R.id.textView_address);
 
-
+        //검색 버튼
+        //버튼을 누르면 선택한 작물 기반으로 농장이름, 게시물 내용, 등록 시간의 값 가져오기
         Button button_search = (Button) findViewById(R.id.button_main_search2);
         button_search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
 
                 mArrayList.clear();
                 mArrayList2.clear();
@@ -110,14 +108,12 @@ public class Information extends AppCompatActivity {
     }
 
     public class GetData extends AsyncTask<String, Void, String> {
-
         ProgressDialog progressDialog;
         String errorString = null;
 
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute() {//DB와 연결하는 동안의 시간동안 화면에 출력되는 로딩 화면
             super.onPreExecute();
-
             progressDialog = ProgressDialog.show(Information.this,
                     "Please Wait", null, true, true);
         }
@@ -125,34 +121,27 @@ public class Information extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
             progressDialog.dismiss();
-            Log.d(TAG, "response - " + result);
-
             mJsonString = result;
             mJsonString1 = result;
             mJsonString2 = result;
             showResult();
-
         }
 
-
+        //queryForinfo.php를 통해 Android Studio와 DB를 연결하여 seller2에 저장된 정보를
+        // c_name(농작물 이름)과 f_address(농장 주소)를 기준으로 select해오기
+        //try-catch문을 사용해 에러를 잡는다
         @Override
         protected String doInBackground(String... params) {
-
             String searchKeyword1 = params[0];
             String searchKeyword2 = params[1];
-
 
             String serverURL = "http://ec2-3-14-72-47.us-east-2.compute.amazonaws.com/queryForinfo.php";
             String postParameters = "c_name=" + searchKeyword1 + "&f_address=" + searchKeyword2;
 
-
             try {
-
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
 
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
@@ -160,12 +149,10 @@ public class Information extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
 
-
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
                 outputStream.close();
-
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d(TAG, "response code - " + responseStatusCode);
@@ -177,8 +164,6 @@ public class Information extends AppCompatActivity {
                 else{
                     inputStream = httpURLConnection.getErrorStream();
                 }
-
-
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -188,41 +173,26 @@ public class Information extends AppCompatActivity {
                 while((line = bufferedReader.readLine()) != null){
                     sb.append(line);
                 }
-
-
                 bufferedReader.close();
-
-
                 return sb.toString().trim();
-
-
             } catch (Exception e) {
-
-                Log.d(TAG, "InsertData: Error ", e);
                 errorString = e.toString();
-
                 return null;
             }
         }
-
     }
 
-    private void showResult() {
-        //주소찍기
+    private void showResult() { //DB에서 select해온 s_name, content, time를 HashMap형태로 구현
+        //HashMap으로 받아온 s_name(게시물 제목)을 Listview 형태로 저장
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-            Log.v("01121331565rrrrr", mJsonString);
+
             for (int i = 0; i < jsonArray.length(); i++) {
-
                 JSONObject item = jsonArray.getJSONObject(i);
-
                 String title = item.getString(TAG_title);
-
                 HashMap<String, String> hashMap = new HashMap<>();
-
                 hashMap.put(TAG_title, title);
-
                 mArrayList.add(hashMap);
             }
             ListAdapter adapter = new SimpleAdapter(
@@ -231,25 +201,19 @@ public class Information extends AppCompatActivity {
                     new int[]{R.id.textView_list_title}
             );
             mlistViewtitle.setAdapter(adapter);
-
-
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
         }
 
-
+        //HashMap으로 받아온 content(게시물 내용)을 Listview 형태로 저장
         try {
             JSONObject jsonObject = new JSONObject (mJsonString1);
             JSONArray jsonArray1 = jsonObject.getJSONArray(TAG_JSON);
 
             for (int i = 0; i < jsonArray1.length(); i++) {
-
                 JSONObject item = jsonArray1.getJSONObject(i);
-
                 String content = item.getString(TAG_content);
-
                 HashMap<String, String> hashMap = new HashMap<>();
-
                 hashMap.put(TAG_content, content);
                 mArrayList2.add(hashMap);
             }
@@ -263,19 +227,15 @@ public class Information extends AppCompatActivity {
             Log.d(TAG, "showResult : ", e);
         }
 
-        /////time
+        //HashMap으로 받아온 time(게시물 등록 시간)을 Listview 형태로 저장
         try {
             JSONObject jsonObject = new JSONObject (mJsonString2);
             JSONArray jsonArray2 = jsonObject.getJSONArray(TAG_JSON);
 
             for (int i = 0; i < jsonArray2.length(); i++) {
-
                 JSONObject item = jsonArray2.getJSONObject(i);
-
                 String time = item.getString(TAG_time);
-
                 HashMap<String, String> hashMap = new HashMap<>();
-
                 hashMap.put(TAG_time, time);
                 mArrayList3.add(hashMap);
             }
@@ -288,9 +248,7 @@ public class Information extends AppCompatActivity {
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
         }
-
     }
-
 }
 
 

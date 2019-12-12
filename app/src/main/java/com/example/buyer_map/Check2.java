@@ -1,5 +1,5 @@
 package com.example.buyer_map;
-//구매자 버튼에서 연결되는 crop
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -33,8 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//작물과 일치하는 주소를 출력하는 코드
-//주소와 일치하는 글제목 출력하도록 변경
+//판매자가 게시물 삭제를 하기
 public class Check2 extends AppCompatActivity {
 
     //주소 리스트
@@ -47,7 +46,7 @@ public class Check2 extends AppCompatActivity {
             "경기도 고양시 덕양구 대장동 561-4",
             "경기도 고양시 덕양구 대장동 563-6",
             "경기도 고양시 덕양구 대장동 567-3",
-            "경기도 고양시 덕양구 덕은동 520-72",  ////
+            "경기도 고양시 덕양구 덕은동 520-72",
             "경기도 고양시 덕양구 덕은동 569-3",
             "경기도 고양시 덕양구 도내동 822-4",
             "경기도 고양시 덕양구 벽제동 103",

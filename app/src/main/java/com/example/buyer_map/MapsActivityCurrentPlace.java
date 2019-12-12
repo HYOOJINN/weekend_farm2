@@ -39,43 +39,36 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         implements OnMapReadyCallback {
 
     private static final String TAG = MapsActivityCurrentPlace.class.getSimpleName();
-    private GoogleMap mMap;
-    private CameraPosition mCameraPosition;
+    private GoogleMap mMap; // 화면이동, 마커 달기 등등으로 사용되는 구글맵 변수
+    private CameraPosition mCameraPosition;  //  좌표이동 + 3d 효과 주는 변수
 
-    // The entry point to the Fused Location Provider.
-    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private FusedLocationProviderClient mFusedLocationProviderClient; // 주변 정보를 얻는 변수
 
-    // A default location (Sydney, Australia) and default zoom to use when location permission is
-    // not granted. //////////////////////////default location : 서울시로 바꾸기
-    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 10;
-    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
-    private boolean mLocationPermissionGranted;
+    // 인터넷 연결이 안됬을 때, default location이 시작점이 됨.
+   private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private static final int DEFAULT_ZOOM = 10; // 지도 줌의 정도
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1; //위치정보 사용에 대한 동의 상수로 requestCode랑 비교해서 같으면 ok
+    private boolean mLocationPermissionGranted; // 위치정보 사용 동의시 true
 
-    // The geographical location where the device is currently located. That is, the last-known
-    // location retrieved by the Fused Location Provider.
-    private Location mLastKnownLocation;
+    private Location mLastKnownLocation; // 현재 위치의 loction 정보를 담는 변수
 
-    // Keys for storing activity state.
+   // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
     // Used for selecting the current place.
     private static final int M_MAX_ENTRIES = 5;
 
-    // x,y,address 값 받아오기
+    // Buyer에서 받아온 x,y, 농장 이름, 농장 주소 값을 배열 형태로 저장
     String[] arraylist_x;
     String[] arraylist_y;
     String[] arraylist_farmName;
-
-    //buyer에서 받아온 주소 listview에 출력하기
     String[] arraylist_address;
 
-    //ListView address_listview;
     String selected_item;
     String receive_address;
-
-    double[] double_arrX;
+    // String형태의 x,y 좌표를 double형으로 변환하여 배열 형태로 저장
+   double[] double_arrX;
     double[] double_arrY;
 
 
@@ -83,29 +76,22 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
-
-        // activity_maps_current_place.XML의 fragment layout(activity_maps_current_place)에 지도 출력
+        //activity_maps_current_place.XML의 fragment layout(activity_maps_current_place)에 지도 출력
         setContentView(R.layout.activity_maps_current_place);
 
-//        // Construct a FusedLocationProviderClient.
-//        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        // Build the map. -> Google map
+        //SupportMapFragment을 통해 레이아웃에 만든 fragment의 id를 참조하고 구글맵을 호출한다.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
+        mapFragment.getMapAsync(this); // onMapReady()가 자동 호출됨
 
         Intent intent4 = getIntent();
         receive_address = intent4.getStringExtra("cropFromBuyer");
 
         //buyer에서 받아온 주소 listview에 출력하기
-
         ListView address_listview = (ListView) findViewById(R.id.mark_address_list);
         Intent intent2 = getIntent();
         arraylist_address = intent2.getExtras().getStringArray("arr_address");
@@ -124,6 +110,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
                 selected_item = (String)adapterView.getItemAtPosition(position);
 
+                //선택한 주소 정보를 팝업창에 저장하기
+                //주소 목록 선택 시, information으로 전환하기 위한 팝업창을 화면에 출력
                 androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setMessage(selected_item);
 
@@ -148,19 +136,19 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             }
         });
 
-        ////////////////////////////////주소 받아와서 마커찍기 //////////////////////////////////
-        Intent intent = getIntent();
-        arraylist_x = intent.getExtras().getStringArray("arr_x");
-        arraylist_y = intent.getExtras().getStringArray("arr_y");
 
+        Intent intent = getIntent();
+        arraylist_x = intent.getExtras().getStringArray("arr_x"); // x좌표 배열로 받아오기
+        arraylist_y = intent.getExtras().getStringArray("arr_y"); //y좌표 배열로 받아오기
         arraylist_farmName = intent.getExtras().getStringArray("arr_farmName"); // 농장이름 배열로 받아오기
         arraylist_address = intent.getExtras().getStringArray("arr_address"); // 농장주소 배열로 받아오기
 
+        // String형의 x 좌표를 double형으로 강제형변환
         double_arrX = new double[arraylist_x.length];
         for(int i = 0; i<arraylist_x.length; i++){
             double_arrX[i] = Double.parseDouble(arraylist_x[i]);
         }
-
+        // String형의 y 좌표를 double형으로 강제형변환
         double_arrY = new double[arraylist_y.length];
         for(int i = 0; i<arraylist_y.length; i++){
             double_arrY[i] = Double.parseDouble(arraylist_y[i]);
@@ -168,9 +156,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     }
 
 
-    /**
-     * Saves the state of the map when the activity is paused.
-     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (mMap != null) {
@@ -180,10 +165,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
     }
 
-    /**
-     * Manipulates the map when it's available.
-     * This callback is triggered when the map is ready to be used.
-     */
+
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
@@ -191,7 +173,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         final MarkerOptions farm_marker = new  MarkerOptions();
 
         for(int i = 0; i<double_arrX.length; i++) {
-
             farm_marker.position(new LatLng(double_arrX[i], double_arrY[i]));
             farm_marker.title(arraylist_farmName[i]);
             farm_marker.snippet(arraylist_address[i]);
@@ -201,26 +182,18 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false); // 이미지마커 등록
             farm_marker.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
             mMap.addMarker(farm_marker);
-
             //마커 클릭 리스너
             this.mMap.setOnMarkerClickListener(markerClickListener);
-
             //정보창 클릭 리스너
             mMap.setOnInfoWindowClickListener(infoWindowClickListener);
-
         }
 
-        // Prompt the user for permission.
         getLocationPermission();
-
-        // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
-
-        // Get the current location of the device and set the position of the map.
         getDeviceLocation();
     }
 
-    /////////////마커 클릭 리스너-> ZOOM
+    //마커 클릭 리스너
     GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(Marker marker) {
@@ -229,13 +202,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             //마커 클릭시 지도 가운데로 이동시킨 후 ZOOM
             CameraUpdate center = CameraUpdateFactory.newLatLng(marker.getPosition());
             mMap.animateCamera(center);
-
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(location.latitude, location.longitude), 15));
             return false;
         }
     };
-
     //정보창 클릭 리스너
     GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
@@ -243,14 +214,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
     };
 
-    /**
-     * Gets the current location of the device, and positions the map's camera.
-     */
+    //현위치 받아오기
     private void getDeviceLocation() {
-        /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         */
         try {
             if (mLocationPermissionGranted) {
                 Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
@@ -258,7 +223,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
-                            // Set the map's camera position to the current location of the device.
+                            // 지도의 기본 위치를 현위치로 설정한다.
                             mLastKnownLocation = task.getResult();
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
@@ -288,15 +253,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
     }
 
-    /**
-     * Prompts the user for permission to use the device location.
-     */
+    //GPS를 사용하기 위한 권한 설정
     private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -308,9 +266,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
     }
 
-    /**
-     * Handles the result of the request for location permissions.
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
@@ -328,9 +283,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         updateLocationUI();
     }
 
-    /**
-     * Updates the map's UI settings based on whether the user has granted location permission.
-     */
+    //위치 권한 설정 여부에 따라 구글맵에 디바이스의 위치를 설정
     private void updateLocationUI() {
         if (mMap == null) {
             return;

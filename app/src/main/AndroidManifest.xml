@@ -27,13 +27,11 @@
         <activity android:name=".Buyer" />
         <activity android:name=".coordinates" />
         <activity android:name=".Crop2" />
-        <activity android:name=".hotItem" />
         <activity android:name=".request" />
         <activity android:name=".Information" />
         <activity android:name=".Farm" />
         <activity android:name=".Crop" />
         <activity android:name=".Seller" />
-        <activity android:name=".MainActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -58,16 +56,6 @@
             android:value="AIzaSyDSISTzJdZYFiSQhJN96J4TJ4WqdL_d0y8" />
 
 
-
-        <activity android:name=".MapsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:scheme="geo" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
